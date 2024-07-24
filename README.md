@@ -1,3 +1,3 @@
 # HIVYE
 
-HIV Youth Empowerment App in React
+revised HIV Youth Empowerment App
