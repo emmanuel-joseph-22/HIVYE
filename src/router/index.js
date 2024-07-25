@@ -19,7 +19,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/forum'
     },
     {
       path: '/home',

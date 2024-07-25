@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-row">
-        <section class="forum_section border-x border-1 border-gray-700">
+        <section class="forum_section">
             <div class="text-white w-full py-2 px-4 text-lg text-center border-b border-gray-700 border-1">
                 Forum
             </div>
@@ -26,8 +26,9 @@
                         <img :src="imageUrl" alt="Uploaded Image">
                     </div> -->
                     <div class="flex flex-row w-auto ml-auto gap-2 items-center">
-                        <button class="flex rounded-full shadow-lg bg-red-400 py-1 px-2 text-white"
-                            :class="{ '': active, inactive}">
+                        <button class="flex rounded-full shadow-lg py-1 px-2 text-black bg-accentRed border border-2 border-red-700"
+                            :class="{ 'bg-matcha text-black border border-2 border-green-700': anonymous }"
+                            @click="anonymous==true">
                             Anonymous
                         </button>
                         <button class="py-1 px-4 rounded-full shadow-lg bg-white flex text-darkblue hover:bg-matcha">
@@ -39,7 +40,7 @@
                 <Postcard />
             </div>
         </section>
-        <section class="side_content fixed right-0 h-screen text-white transition-linear duration-1000">
+        <section class="side_content fixed border-l border-1 border-gray-700  right-0 h-screen text-white transition-linear duration-1000">
             <div class="text-white w-full py-4 text-lg flex flex-row items-center">
                 <div class="w-1/2 text-center cursor-pointer"
                     :class="{ 'sideHeadBorder' : helplineActive }"
@@ -52,10 +53,13 @@
             <TestingCenters v-if="testingActive"/>
         </section>
     </div>
+
+    <QuizButton />
 </template>
 <script>
 import Helplines from './Helplines.vue';
 import TestingCenters from './TestingCenters.vue';
+import QuizButton from '@/components/buttons/QuizButton.vue';
 import Postcard from '@/components/posts_components/postcard.vue';
 import header from '../../components/navigations/header.vue'; 
 export default{
@@ -63,13 +67,15 @@ export default{
         header,
         Postcard,
         Helplines,
-        TestingCenters
+        TestingCenters,
+        QuizButton
     },
     data(){
         return {
            dataLoaded: true,
            helplineActive: true,
            testingActive: false,
+           anonymous: false,
         }
     },
     methods: {
@@ -111,13 +117,6 @@ export default{
     }
     .forum_section{
         width: 100%;
-    }
-    #posting{
-        width: 100vw;
-    }
-    .post-container{
-        width: 100%;
-        max-width: 100%;
     }
 }
 /* textarea */

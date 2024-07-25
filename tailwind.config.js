@@ -11,7 +11,7 @@ export default {
         'roboto-condensed': ['"Roboto Condensed"', 'sans-serif'],
       },
       colors: {
-        matcha: '#86D1A8',
+        matcha: '#9F9FE0',
         accentRed: '#F64D54',
         darkBlue: '#090517',
         contrastBlue: ''
