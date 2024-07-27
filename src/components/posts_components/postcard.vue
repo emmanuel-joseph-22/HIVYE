@@ -1,7 +1,7 @@
 <template>
     <div 
         v-for="post in fetched_posts" 
-        class="flex flex-col border-y border-1 w-full border-gray-700 text-white">
+        class="flex flex-col border-b border-1 w-full border-gray-700 text-white">
         <!-- header -->
         <div class="flex flex-row w-full items-center px-4 pt-4">
             <h1 class="font-bold text">{{ post.userName }}</h1>

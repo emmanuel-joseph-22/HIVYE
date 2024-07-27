@@ -2,7 +2,7 @@
     <QuizButton />
     <div class="flex flex-row">
         <section class="notif_section flex flex-col">
-            <div class="text-white w-full py-2 px-4 text-lg border-b border-gray-700 border-1">
+            <div class="text-white w-full py-3 px-4 text-lg font-bold">
                 Notifications
             </div>
             <div class="flex flex-col w-full py-4">

@@ -6,7 +6,7 @@
       <img src="./../assets/HIVYE_logo.png" class="w-1/3 mx-auto" />    
     </div>
     <div v-for="(tab, index) in side_bar_tabs" :key="index">
-      <div class="w-11/12 mx-auto rounded-lg text-xl hover:bg-matcha text-white transition duration-300 cursor-pointer"
+      <div class="w-11/12 mx-auto rounded-lg text-xl hover:bg-gray-700 text-white transition duration-300 cursor-pointer"
         @click="toggleTab(index)"
         :class="{ 'text-darkBlue bg-matcha': tab.active }">
         <router-link :to="tab.route" class="flex flex-row py-3 w-full px-5 md:px-10 items-center gap-3">

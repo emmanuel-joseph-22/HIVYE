@@ -1,5 +1,5 @@
 <template>
-    <section class="w-full flex">
+    <section class="w-full flex text-white">
         <div class="mx-auto flex flex-col my-24">
             <h1 class="text-2xl">404</h1>
             <h3 class="text-xl mb-8">Page not found</h3>

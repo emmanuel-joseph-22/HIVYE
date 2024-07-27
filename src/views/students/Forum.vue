@@ -2,30 +2,15 @@
     <div class="flex flex-row">
         <section class="forum_section">
             <div class="text-white w-full py-2 px-4 text-lg text-center border-b border-gray-700 border-1">
-                Forum
+                For You
             </div>
             <!-- forum space -->
             <div id="flex flex-col h-auto" v-if="dataLoaded">
                 <!-- post prompt -->
                 <div class="flex flex-col h-auto w-11/12 my-8 mx-auto"> 
-                    <textarea class="discussion_box" ref="post_textarea" rows="1" placeholder="Start a discussion here..." v-model="post" @input="adjustTextarea"></textarea>
-                    <!-- img upload soon : will be visible if user entered something on the text area 
-                    <div v-if="img_post_buttons" class="post_buttons">
-                        <div class="add_photo">
-                            <label for="fileInput" class="file-label">
-                                add file
-                            </label>
-                            <input type="file" id="fileInput" ref="uploaded_image" class="file-type-hidden" accept="image/*">
-                        </div>
-                        <button @click="toggleButton('newpost')" :class="{ active: anonymous['newpost'], inactive: !anonymous['newpost'] }" id="toggle_button">Anonymous</button>
-                        <button id="post_button" class="regular_buttons" @click="submit_post" type="submit">Post</button>
-                    </div>-->
+                    <textarea class="min-h-[20px] resize-none overflow-y-hidden py-2 px-4 my-2 text-white bg-transparent text-left border-none text-xl focus:border-none focus:outline-none" ref="post_textarea" rows="1" placeholder="Start a discussion here..." v-model="post" @input="adjustTextarea"></textarea>
                     
-                    <!-- <div v-if="imageUrl">
-                        <h3>Uploaded Image:</h3>
-                        <img :src="imageUrl" alt="Uploaded Image">
-                    </div> -->
-                    <div class="flex flex-row w-auto ml-auto gap-2 items-center">
+                    <div v-if="post_buttons" class="flex flex-row w-auto ml-auto gap-2 items-center">
                         <button class="flex rounded-full shadow-lg py-1 px-2 text-black bg-accentRed border border-2 border-red-700"
                             :class="{ 'bg-matcha text-black border border-2 border-green-700': anonymous }"
                             @click="anonymous==true">
@@ -76,6 +61,7 @@ export default{
            helplineActive: true,
            testingActive: false,
            anonymous: false,
+           post_buttons: false,
         }
     },
     methods: {
@@ -90,7 +76,20 @@ export default{
                 this.helplineActive = false;
                 this.testingActive = true;
             }
-        }
+        },
+        adjustTextarea(){
+            const textarea = this.$refs.post_textarea;
+
+            if(textarea){
+                textarea.style.height = 'auto';
+                textarea.style.height = textarea.scrollHeight + 'px';
+                this.post_buttons = true
+            }
+            if (textarea.value.trim() === '') {
+                textarea.style.height = 'auto';
+                this.post_buttons = false;
+            }
+        },
     },
     mounted(){
     }
@@ -119,16 +118,6 @@ export default{
         width: 100%;
     }
 }
-/* textarea */
-.discussion_box{
-    min-height: 20px;
-    resize: none;
-    overflow-y: hidden;
-    padding: 10px;
-    color: white;
-    background-color: #ffffff00;
-    text-align: left;
-    cursor: pointer;
-}
+
 
 </style>

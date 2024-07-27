@@ -1,20 +1,19 @@
 <template>
   <div id="chat-container" class="relative w-full h-full flex flex-col">
     <!-- Chatbox (Scrollable) -->
-    <div id="chatbox" class="flex flex-col-reverse overflow-y-scroll p-4">
+    <div id="chatbox" class="flex flex-col-reverse overflow-y-scroll py-4 px-6">
       <div v-for="message in fetched_chats"
         :key="message.id"
-        class="my-2 w-3/5 min-w-64 flex flex-col" >
+        class="my-2 flex flex-col w-auto">
         <div class="text-sm ml-1">{{ message.user }}</div>
-        <div class="py-2 px-4 rounded-xl bg-gray-700 w-full border border-1 border-gray-600 my-2 flex flex-col">{{ message.chat }}</div>
-        <div class="text-xs ml-auto">{{ message.date }}</div>
+        <div class="py-2 px-3 rounded-xl bg-gray-700 border border-1 border-gray-600 mt-1 mb-2 inline-block max-w-max">{{ message.chat }}</div>
+        <div class="text-xs">{{ message.date }}</div>
       </div>
     </div>
-  
     <!-- Message Prompt -->
-    <div id="message-prompt" class="absolute bottom-1 left-0 right-0 flex flex-row justify-center items-center px-4 py-2 border-t border-1 border-gray-700">
-      <textarea v-model="newMessage" class="w-10/12 rounded-lg p-2 max-h-10 bg-darkBlue" placeholder="Type your message..."></textarea>
-      <button @click="sendMessage" class="w-2/12 ml-4 bg-blue-500 text-white rounded-lg p-2">Send</button>
+    <div id="message-prompt" class="absolute bottom-1 left-0 right-0 flex flex-row justify-center items-center px-4 py-2 border-t border-1 border-gray-700 bg-darkBlue">
+      <textarea v-model="newMessage" class="w-10/12 rounded-lg p-2 max-h-10 bg-transparent border-none overflow-y-auto focus:border-none focus:outline-none" placeholder="Type your message..."></textarea>
+      <button @click="sendMessage" class="w-2/12 ml-4 bg-matcha text-white rounded-lg p-2 hover:bg-gray-600">Send</button>
     </div>
   </div>
 </template>
