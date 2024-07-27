@@ -11,15 +11,14 @@ import ChatView from '../views/chats/ChatView.vue';
 import NotifView from '../views/students/Notifications.vue';
 import RiskEstimator from '../views/students/RiskEstimator.vue';
 import ProfileView from '../views/students/ProfileView.vue';
-
-
+import AboutMe from '../views/mics/aboutMe.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/forum'
     },
     {
       path: '/home',
@@ -71,13 +70,18 @@ const router = createRouter({
       name: 'signup',
       component: Signup
     },
-
+    {
+      path: '/about',
+      name: 'about',
+      component: AboutMe
+    },
     /* for unrecognized paths not working */
     {
       path: '/:catchAll(.*)',
       name: 'CatchPage',
       component: CatchPage
-    }
+    },
+    // 
   ]
 })
 

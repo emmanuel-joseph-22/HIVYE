@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-row w-full mx-auto">
+    <div class="flex flex-row w-full mx-auto text-white">
         <!-- signup component -->
         <div class="h-screen p-0 sm:p-12 w-full md:w-1/2 lg:w-1/3 xl:1/4  mx-auto">
             <div class="auth_card container h-full text-center flex flex-col items-center justify-center py-8 px-5 mx-auto shadow-none sm:shadow-lg ">

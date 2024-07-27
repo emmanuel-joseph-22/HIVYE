@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-row w-full mx-auto">
+    <div class="flex flex-row w-full mx-auto text-white">
         <!-- flex branding space -->
         <!-- <div class="hidden lg:block w-7/12 border-1 border-solid border-black mx-auto flex items-center justify-content">
             

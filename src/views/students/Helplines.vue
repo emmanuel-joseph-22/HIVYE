@@ -1,7 +1,7 @@
 <template>
     <div
         v-for="helpine in helplines" 
-        class="flex flex-row border border-1 w-11/12 mx-auto my-4 border-green-900 rounded-xl text-white py-4 px-4 gap-4">
+        class="flex flex-row border border-1 w-11/12 mx-auto my-4 border-gray-700 shadow-lg rounded-xl text-white py-4 px-4 gap-4">
         <div class="w-2/12 flex items-center justify-center">
             <img :src="helpine.logo" />
         </div>
