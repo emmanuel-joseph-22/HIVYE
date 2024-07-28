@@ -7,32 +7,27 @@
                 <!-- <h1 class="my-12">Register</h1> -->
 
                 <Forms class=" flex flex-col px-6 my-8 w-full">
-                    <label for="user_email" class="font-bold mb-2 text-left">Email</label>
+                    <label for="user_email" class="font-bold text-left">Email</label>
                     <input 
                         autofocus id="input_userid" 
                         type="email"
                         name="user_email" 
                         required placeholder="yourname@mail.com" 
-                        :class="{ 'border-red-600 border-2': errorMsg && !emailIsValid() }" 
-                        class="px-4 py-2 mb-4 border border-matcha rounded-lg focus:outline-none focus:ring-2 focus:ring-matcha w-full" v-model="email"/>
-                    
-                    <label for="password" class="font-bold mb-2 text-left">Password</label>
+                        :class="{ 'border-red-600 border-2': errorEmailMsg && !emailIsValid() }" 
+                        class="px-4 py-2 my-1 border border-matcha rounded-lg focus:outline-none focus:ring-2 focus:ring-matcha w-full text-darkBlue" 
+                        v-model="email"/>
+                        <span class="text-red-400 text-sm mb-4">{{ errorEmailMsg }}</span>
+                    <label for="password" class="font-bold text-left">Password</label>
                     <input 
                         :type="passwordVisibility ? 'text' : 'password'" 
                         id="input_password" 
                         name="password" 
                         required placeholder="Password" 
-                        :class="{ 'border-red-600 border-2': errorMsg && !passwordIsValid() }" 
-                        class="pl-4 pr-10 py-2 mb-4 border border-matcha rounded-lg focus:outline-none focus:ring-2 focus:ring-matcha w-full" v-model="password"/>
-                    <!-- <button @click="togglePasswordVisibility" class="absolute top-6 transform -translate-y-1/2 right-2 focus:outline-none">
-                                <img v-if="!passwordVisibility" src="hide.png" alt="Hide password" class="h-6 w-6">
-                                <img v-else src="view.png" alt="Show password" class="h-6 w-6">
-                            </button> 
-                            <div v-if="errorMsg" class="flex items-center bg-red-200 border-2 border-red-600 p-2 rounded-xl">
-                                <img src="exclamation.png" alt="Error icon" class="w-6 h-6 mr-2">
-                                <p class="font-bold text-red-600 text-sm">{{ errorMsg }}</p>
-                            </div>-->
-                    <!-- login button -->
+                        :class="{ 'border-red-600 border-2': errorPWMsg && !passwordIsValid() }" 
+                        class="pl-4 pr-10 py-2 my-1 border border-matcha rounded-lg focus:outline-none focus:ring-2 focus:ring-matcha w-full text-darkBlue" 
+                        v-model="password"/>
+                        <span class="text-red-400 text-sm mb-4">{{ errorPWMsg }}</span>
+
                     <div @click="signup" class="auth_button flex justify-center items-center my-12">
                         <a href="#" class="relative block bg-bsu-base border-2 border-solid border-matcha text-matcha hover:text-white bg-opacity-50 px-6 py-3 rounded-full overflow-hidden tracking-widest">
                             <span class="relative transition duration-1000">SIGN UP</span>
@@ -50,6 +45,71 @@
         </div>
     </div>
 </template>
+<script setup>
+import { ref } from 'vue';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { useRouter } from 'vue-router';
+
+const email = ref("");
+const password = ref("");
+const errorEmailMsg = ref("");
+const errorPWMsg = ref("");
+
+
+const router = useRouter();
+
+// Function to validate email format
+const emailIsValid = () => {
+  const emailRegex = /\S+@\S+\.\S+/;
+  return emailRegex.test(email.value);
+};
+// Function to validate password format
+const passwordIsValid = () => {
+  return (
+      password.value.length >= 8 
+        && /[A-Z]/.test(password.value) &&
+        /\d/.test(password.value) &&
+        !/\s/.test(password.value)
+  );
+};
+
+const signup = async () => {
+  // Reset error message
+  errorEmailMsg.value = "";
+  errorPWMsg.value = "";
+  if (!emailIsValid()) {
+    errorEmailMsg.value = "Please enter a valid email.";
+    return;
+  }
+
+  // Validate password second
+  if (!passwordIsValid()) {
+        errorPWMsg.value = "Password must be at least 8 characters long, contain at least one uppercase letter, one number, and have no spaces.";
+        return;
+  }
+  // check role 
+  try {
+      // Initialize Firebase Authentication
+      const auth = getAuth();
+
+      // Create a new user with Firebase Authentication
+      const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
+      
+      // User data from authentication
+      //const user = userCredential.user;
+
+      console.log("Successfully registered and data saved in Firestore!");
+
+      // apply state management
+    
+      // Redirect to the '/home' route
+      router.push("/home");
+  } catch (error) {
+      console.error("Error during signup:", error.code, error.message);
+  }
+};
+
+</script>
 <style scoped>
 .auth_button a span{
     z-index: 1;
@@ -84,22 +144,3 @@
     }
 }
 </style>
-<script>
-export default{
-    data(){
-        return {
-            email: '',
-            password: '',
-            errorMsg: '',
-        }
-    },
-    methods: {
-        emailIsValid(){
-
-        },
-        signup(){
-
-        }
-    }
-}
-</script>

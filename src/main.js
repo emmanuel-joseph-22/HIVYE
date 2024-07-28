@@ -1,4 +1,3 @@
-
 import './styles/output.css';
 import './styles/index.css';
 import '@mdi/font/css/materialdesignicons.min.css'; // Import Material Design Icons
@@ -22,12 +21,11 @@ const firebaseConfig = {
   appId: "1:666783161186:web:cbfb2c22082438234daa3b"
 };
 
-
 export const firebase_app = initializeApp(firebaseConfig);
 export const HIVYE_database = getDatabase(firebase_app);
 export const HIVYE_storage = getStorage(firebase_app);
 
-const app = createApp(App);
+export const app = createApp(App);
 app.use(createPinia());
 app.use(router);
 app.mount('#app');
