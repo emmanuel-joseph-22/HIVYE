@@ -11,7 +11,7 @@ import ChatView from '../views/chats/ChatView.vue';
 import NotifView from '../views/students/Notifications.vue';
 import RiskEstimator from '../views/students/RiskEstimator.vue';
 import ProfileView from '../views/students/ProfileView.vue';
-import AboutMe from '../views/mics/aboutMe.vue';
+import AboutMe from '../views/misc/aboutMe.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
