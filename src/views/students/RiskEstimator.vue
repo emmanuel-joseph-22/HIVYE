@@ -1,9 +1,10 @@
 <template>
     <div class="flex flex-col text-white">
+        <!-- Back button -->
         <router-link :to="{ name: 'forum' }" class="fixed rounded-full p-2 m-3 hover:bg-gray-700">
             <BackButton />
         </router-link>
-        <!-- Risk Estimator Section -->
+        <!-- Risk Estimator Quiz Section -->
         <section v-if="!quizStarted" class="w-8/12 h-screen mx-auto flex flex-col justify-center gap-4">
             <h1 class="text-3xl">Risk Estimator</h1>
             <p>Disclaimer: The risk estimator provided here is not a substitute for professional medical advice, 
@@ -62,6 +63,7 @@
                 }}
             </button>
         </section>
+        <!-- progress bar -->
         <div v-if="!quizCompleted" class="fixed w-0 h-[8px] bg-red-500 z-auto b-0 transition-linear duration-500"
             :class="{
                 'w-1/12': currentQuestion == 0 && quizStarted,
@@ -69,8 +71,10 @@
                 'w-2/4': currentQuestion == 2,
                 'w-3/4': currentQuestion == 3,
                 'w-4/4': quizCompleted
-            }"></div>
-        <section v-show="quizCompleted" class="w-7/12 h-screen mx-auto flex flex-col justify-center gap-4">
+            }">
+        </div>
+        <!-- results section -->
+        <section v-show="quizCompleted" class="w-11/12 h-screen mx-auto flex flex-col justify-center gap-4">
             <div class="rounded-xl p-4 flex flex-col justify-center items-center">
                 <h2 class="text-xl text-gray-400">You have finished the test!</h2>
                 <p class="text-3xl text-white">Percentage: {{ calculatePercentage }}%</p>
@@ -95,38 +99,56 @@
                     <p class="my-2 text-lg">Your risk of HIV transmission is very high. Seek immediate medical advice, consider PrEP, strictly adhere to safer practices, and ensure frequent testing to address and lower this very high risk.</p>
                 </div>
 
-                <button class="bg-matcha py-2 px-4 rounded-lg flex hover:scale-105 transition duration-300" @click="showLearnMore==true">Learn More <DropdownIcon /></button>
-                <div v-if="showLearnMore" class="p-2 bg-white rounded-lg">
+                <button 
+                    class="text-white py-2 px-4 rounded-lg flex hover:text-matcha hover:scale-125 transition duration-300" 
+                    @click="showLearnMore = !showLearnMore">
+                    Learn More 
+                    <DropdownIcon />
+                </button>
+                <div v-if="showLearnMore" class="p-2 rounded-lg">
                     <ul>
-                        <li><a href="https://www.unitysexualhealth.co.uk/hiv-information-services-support-testing-treatments/hiv-risk-tests-treatments/" target="_blank">HIV – Risk, Tests & Treatments</a></li>
-                        <li><a href="https://www.cdc.gov/hiv/basics/livingwithhiv/understanding-care.html" target="_blank">Understanding Care</a></li>
+                        <li>
+                            <a 
+                                href="https://www.unitysexualhealth.co.uk/hiv-information-services-support-testing-treatments/hiv-risk-tests-treatments/" 
+                                target="_blank"
+                                class="hover:text-matcha">
+                                    HIV – Risk, Tests & Treatments
+                            </a>
+                        </li>
+                        <li>
+                            <a 
+                                href="https://www.cdc.gov/hiv/basics/livingwithhiv/understanding-care.html" 
+                                target="_blank"
+                                class="hover:text-matcha">
+                                Understanding Care
+                            </a>
+                        </li>
                     </ul>
                 </div>
-                
                 <!-- submit data -->
-                <div class="text-center p-4">
+                <div class="text-center p-4 flex flex-col">
                     <hr>
                     <p class="my-4">
                         May we have your consent to record your HIV risk assessment 
                         for analytical purposes? This data aids us in refining support 
                         strategies for all users.
                     </p>
-                    <button 
-                        class="py-2 px-4 rounded-xl bg-red-600 mx-2 hover:bg-red-500 shadow-lg" 
-                        @click="retakeQuiz">
-                        Retake Quiz
-                    </button>
-                    <button 
-                        class="py-2 px-4 rounded-xl bg-green-600 mx-2 hover:bg-green-500 shadow-lg" 
-                        @click="submit_risk_data">
-                        Submit my results
-                    </button>
-
+                    <div class="w-full mx-auto">
+                        <button 
+                            class="py-2 px-4 text-sm rounded-xl mx-1 bg-red-600 hover:bg-red-500 shadow-lg" 
+                            @click="retakeQuiz">
+                            Retake Quiz
+                        </button>
+                        <button 
+                            class="py-2 px-4 text-sm rounded-xl mx-1 bg-green-600 hover:bg-green-500 shadow-lg" 
+                            @click="submit_risk_data">
+                            Submit my results
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
     </div>
 </template>
-
 <script src="../../scripts/RiskEstimator.js">
 </script>

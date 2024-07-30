@@ -6,24 +6,27 @@
                 <img src="./../../assets/HIVYE_logo.png" class="w-1/3 mx-auto"/>
                 <!-- <h1 class="my-12">Login</h1> -->
 
-                <Forms class=" flex flex-col px-6 my-8 w-full">
+                <div class=" flex flex-col px-6 my-8 w-full">
                     <label for="user_email" class="font-bold mb-2 text-left">Email</label>
                     <input 
                         autofocus id="input_userid" 
                         type="email"
                         name="user_email" 
                         required placeholder="yourname@mail.com" 
-                        :class="{ 'border-red-600 border-2': errorMsg && !emailIsValid() }" 
-                        class="px-4 py-2 mb-4 border border-matcha rounded-lg focus:outline-none focus:ring-2 focus:ring-matcha w-full" v-model="email"/>
-                    
+                        :class="{ 'border-red-600 border-2': errorEmailMsg && !emailIsValid() }" 
+                        class="px-4 py-2 mb-4 border border-matcha rounded-lg focus:outline-none focus:ring-2 focus:ring-matcha w-full text-darkBlue" 
+                        v-model="email"/>
+                        <span class="text-red-400 text-left text-sm mb-4">{{ errorEmailMsg }}</span>
                     <label for="password" class="font-bold mb-2 text-left">Password</label>
                     <input 
                         :type="passwordVisibility ? 'text' : 'password'" 
                         id="input_password" 
                         name="password" 
                         required placeholder="Password" 
-                        :class="{ 'border-red-600 border-2': errorMsg && !passwordIsValid() }" 
-                        class="pl-4 pr-10 py-2 mb-4 border border-matcha rounded-lg focus:outline-none focus:ring-2 focus:ring-matcha w-full" v-model="password"/>
+                        :class="{ 'border-red-600 border-2': errorPWMsg && !passwordIsValid() }" 
+                        class="pl-4 pr-10 py-2 mb-4 border border-matcha rounded-lg focus:outline-none focus:ring-2 focus:ring-matcha w-full text-black" 
+                        v-model="password"/>
+                        <span class="text-red-400 text-left text-sm mb-4">{{ errorPWMsg }}</span>
                     <!-- <button @click="togglePasswordVisibility" class="absolute top-6 transform -translate-y-1/2 right-2 focus:outline-none">
                                 <img v-if="!passwordVisibility" src="hide.png" alt="Hide password" class="h-6 w-6">
                                 <img v-else src="view.png" alt="Show password" class="h-6 w-6">
@@ -44,7 +47,7 @@
                         Don't have an account? 
                         <router-link to="/signup" class="text-green-600 hover:text-matcha">Sign Up</router-link> 
                     </span>
-                </Forms>
+                </div>
                 
             </div>
         </div>
@@ -84,21 +87,63 @@
     }
 }
 </style>
-<script>
-export default{
-    data(){
-        return {
-            email: '',
-            password: '',
-            errorMsg: '',
-        }
-    },
-    methods: {
-        emailIsValid(){
+<script setup>
+import { ref } from 'vue';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { useRouter } from 'vue-router';
 
-        },
-        login(){
+const email = ref("");
+const password = ref("");
+const errorEmailMsg = ref("");
+const errorPWMsg = ref("");
+//const errorPWMsg = ref("");
+const passwordVisibility = ref(false);
 
+const router = useRouter();
+
+const emailIsValid = () => {
+    const emailRegex = /\S+@\S+\.\S+/;
+    return emailRegex.test(email.value);
+};
+
+const passwordIsValid = () => {
+    return password.value.length >= 8; 
+};
+
+const login = async () => {
+    errorEmailMsg.value = "";
+    errorPWMsg.value = "";
+
+    const auth = getAuth();
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
+        console.log("Successfully logged in!");
+        const user = userCredential.user; // Retrieve the user object
+        const userId = user.uid; // Retrieve the user ID (UID)
+        // const userRole = await fetchUserRole(userId);
+
+        //console.log("User details:", user);
+        //console.log("UID: ", userId);
+        
+        // state management here
+
+        router.push('/forum');
+        
+    } catch (error) {
+        console.error('Error logging in: ', error.code, error.message);
+        switch (error.code) {
+            case "auth/invalid-email":
+                errorEmailMsg.value = "Invalid email";
+                break;
+            case "auth/user-not-found":
+                errorEmailMsg.value = "Email not found";
+                break;
+            case "auth/wrong-password":
+                errorPWMsg.value = "Invalid Password";
+                break;
+            default:
+                errorPWMsg.value = "Email or password was incorrect";
+                break;
         }
     }
 }

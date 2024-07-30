@@ -13,6 +13,8 @@ import RiskEstimator from '../views/students/RiskEstimator.vue';
 import ProfileView from '../views/students/ProfileView.vue';
 import AboutMe from '../views/misc/aboutMe.vue';
 
+import postView from '@/views/students/postView.vue';
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -30,6 +32,11 @@ const router = createRouter({
             path: '/forum',
             name: 'forum',
             component: Forum
+          },
+          {
+            path: '/post_id',
+            name: 'postView',
+            component: postView
           },
           {
             path: '/helplines',

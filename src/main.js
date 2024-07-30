@@ -7,6 +7,7 @@ import { createPinia } from 'pinia';
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { getStorage } from "firebase/storage";
+import { onAuthStateChanged, getAuth } from 'firebase/auth';
 
 import App from './App.vue';
 import router from './router';
@@ -29,3 +30,24 @@ export const app = createApp(App);
 app.use(createPinia());
 app.use(router);
 app.mount('#app');
+
+// to auth 
+const auth = getAuth(firebase_app);
+
+onAuthStateChanged(auth, async user => {
+  if (user) {
+    try {
+      // if user cred is not in state management
+        // do here
+      console.log('welcome: ', user)
+      // Redirect to the previous route or the home page if no previous route exists
+      router.push('/'); 
+    } catch (error) {
+      console.error('error loading hivye web: ', error);
+      // Handle error
+    }
+  } else {
+    // User is not authenticated, redirect to the login page or perform any other action
+    router.push('/login');
+  }
+});

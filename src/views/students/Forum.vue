@@ -103,13 +103,6 @@ export default{
 .side_content{
     width: 400px;
 }
-.sideHeadBorder{
-    border-bottom: 3px solid white;
-    font-weight: bold;
-    padding-bottom: 5px;
-}
-/* container ng displayed posts */
-
 @media (max-width: 1024px) {
     .side_content{
         display: none;
@@ -118,6 +111,10 @@ export default{
         width: 100%;
     }
 }
-
+.sideHeadBorder{
+    border-bottom: 3px solid white;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
 
 </style>

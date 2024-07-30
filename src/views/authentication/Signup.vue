@@ -16,7 +16,7 @@
                         :class="{ 'border-red-600 border-2': errorEmailMsg && !emailIsValid() }" 
                         class="px-4 py-2 my-1 border border-matcha rounded-lg focus:outline-none focus:ring-2 focus:ring-matcha w-full text-darkBlue" 
                         v-model="email"/>
-                        <span class="text-red-400 text-sm mb-4">{{ errorEmailMsg }}</span>
+                        <span class="text-left text-red-400 text-sm mb-4">{{ errorEmailMsg }}</span>
                     <label for="password" class="font-bold text-left">Password</label>
                     <input 
                         :type="passwordVisibility ? 'text' : 'password'" 
@@ -26,7 +26,7 @@
                         :class="{ 'border-red-600 border-2': errorPWMsg && !passwordIsValid() }" 
                         class="pl-4 pr-10 py-2 my-1 border border-matcha rounded-lg focus:outline-none focus:ring-2 focus:ring-matcha w-full text-darkBlue" 
                         v-model="password"/>
-                        <span class="text-red-400 text-sm mb-4">{{ errorPWMsg }}</span>
+                        <span class="text-left text-red-400 text-sm mb-4">{{ errorPWMsg }}</span>
 
                     <div @click="signup" class="auth_button flex justify-center items-center my-12">
                         <a href="#" class="relative block bg-bsu-base border-2 border-solid border-matcha text-matcha hover:text-white bg-opacity-50 px-6 py-3 rounded-full overflow-hidden tracking-widest">
@@ -67,9 +67,9 @@ const emailIsValid = () => {
 const passwordIsValid = () => {
   return (
       password.value.length >= 8 
-        && /[A-Z]/.test(password.value) &&
-        /\d/.test(password.value) &&
-        !/\s/.test(password.value)
+        // && /[A-Z]/.test(password.value) &&
+        // /\d/.test(password.value) &&
+        // !/\s/.test(password.value)
   );
 };
 
@@ -103,7 +103,7 @@ const signup = async () => {
       // apply state management
     
       // Redirect to the '/home' route
-      router.push("/home");
+      router.push("/forum");
   } catch (error) {
       console.error("Error during signup:", error.code, error.message);
   }
