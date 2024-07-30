@@ -1,7 +1,7 @@
 <template>
     <div class="w-full flex flex-col text-white gap-2 mb-4">
         <!-- comment prompt -->
-        <input type="textarea" class="w-11/12 rounded-lg bg-matcha mx-auto py-1 px-2"/>
+        
         <!-- comment section -->
         <div class="my-2 flex flex-col w-11/12 mx-auto">
             <!-- loop the comment section here -->
