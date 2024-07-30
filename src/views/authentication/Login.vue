@@ -91,6 +91,7 @@
 import { ref } from 'vue';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/user';
 
 const email = ref("");
 const password = ref("");
@@ -100,6 +101,7 @@ const errorPWMsg = ref("");
 const passwordVisibility = ref(false);
 
 const router = useRouter();
+const userStore = useUserStore();
 
 const emailIsValid = () => {
     const emailRegex = /\S+@\S+\.\S+/;
@@ -120,12 +122,11 @@ const login = async () => {
         console.log("Successfully logged in!");
         const user = userCredential.user; // Retrieve the user object
         const userId = user.uid; // Retrieve the user ID (UID)
-        // const userRole = await fetchUserRole(userId);
+        const user_email = user.email;
+        const displayName = user.displayName;
 
-        //console.log("User details:", user);
-        //console.log("UID: ", userId);
-        
         // state management here
+        userStore.setUserCred(userId, user_email, displayName);
 
         router.push('/forum');
         

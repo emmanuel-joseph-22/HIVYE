@@ -5,7 +5,7 @@
             <BackButton />
         </router-link>
         <!-- Risk Estimator Quiz Section -->
-        <section v-if="!quizStarted" class="w-8/12 h-screen mx-auto flex flex-col justify-center gap-4">
+        <section v-if="!quizStarted && user" class="w-8/12 h-screen mx-auto flex flex-col justify-center gap-4">
             <h1 class="text-3xl">Risk Estimator</h1>
             <p>Disclaimer: The risk estimator provided here is not a substitute for professional medical advice, 
                 diagnosis, or treatment. It is intended to serve as a tool to help identify potential risks. 
