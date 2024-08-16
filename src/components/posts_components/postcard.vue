@@ -1,35 +1,33 @@
 <template>
-        <div 
-            v-for="post in Object.keys(posts_container).reverse()"
-            :key="post" 
-            class="flex flex-col border-b border-1 w-full border-gray-700 text-white hover:bg-gray-950"
-            >
-            <router-link :to="{ name: 'postView' }" class=" cursor-pointer">
-                <!-- header -->
-                <div class="flex flex-row w-full items-center px-4 pt-4">
-                    <h1 class="font-bold text">{{ posts_container[post].user }}</h1>
-                    <span class="ml-auto">{{ posts_container[post].date }}</span>
-                </div>
-                <!-- post content -->
-                <div class="flex w-full items-center text-left px-4 py-1">
-                    {{ posts_container[post].post_content }}
-                </div>
-            </router-link>
-            <!-- interactions and metrics -->
-            <div class="flex flex-row w-full gap-2 px-4 items-center my-2">
-                <!-- like -->
-                <likeButton />
-                <!-- comments -->
-                <CommentButton @click="toggle_comment(post)"/>
+    <div 
+        v-for="post in Object.keys(posts_container).reverse()"
+        :key="post" 
+        class="flex flex-col border-b border-1 w-full border-gray-700 text-white hover:bg-gray-950"
+        >
+        <router-link :to="{ name: 'postView' }" class=" cursor-pointer">
+            <!-- header -->
+            <div class="flex flex-row w-full items-center px-4 pt-4">
+                <h1 class="font-bold text">{{ posts_container[post].user }}</h1>
+                <span class="ml-auto">{{ posts_container[post].date }}</span>
             </div>
-            <!-- comment section -->
-            <div v-if="showComments === post" class="w-11/12 mx-auto mt-1 mb-4 flex flex-row gap-2">
-                <input type="textarea" class="w-full rounded-lg py-1 px-2 bg-darkBlue" placeholder="Enter comment...">
-                <button class="px-2 ml-1 rounded-lg bg-matcha">Send</button>
+            <!-- post content -->
+            <div class="flex w-full items-center text-left px-4 py-1">
+                {{ posts_container[post].post_content }}
             </div>
+        </router-link>
+        <!-- interactions and metrics -->
+        <div class="flex flex-row w-full gap-2 px-4 items-center my-2">
+            <!-- like -->
+            <likeButton />
+            <!-- comments -->
+            <CommentButton @click="toggle_comment(post)"/>
         </div>
-
-    
+        <!-- comment section -->
+        <div v-if="showComments === post" class="w-11/12 mx-auto mt-1 mb-4 flex flex-row gap-2">
+            <input type="textarea" class="w-full rounded-lg py-1 px-2 bg-darkBlue" placeholder="Enter comment...">
+            <button class="px-2 ml-1 rounded-lg bg-matcha">Send</button>
+        </div>
+    </div>
 </template>
 
 <script>
