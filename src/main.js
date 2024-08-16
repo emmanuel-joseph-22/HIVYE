@@ -14,7 +14,13 @@ import router from './router';
 import { useUserStore } from './stores/user';
 
 const firebaseConfig = {
-  // your firebase config here
+  apiKey: "AIzaSyDbSK9-Q9Q3v23r1Go3vDoM9bVvODcEpx4",
+  authDomain: "hivye-23.firebaseapp.com",
+  databaseURL: "https://hivye-23-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "hivye-23",
+  storageBucket: "hivye-23.appspot.com",
+  messagingSenderId: "666783161186",
+  appId: "1:666783161186:web:cbfb2c22082438234daa3b"
 };
 
 export const firebase_app = initializeApp(firebaseConfig);
