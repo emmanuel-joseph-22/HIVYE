@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-row">
-        <section class="forum_section">
+        <section class="forum_section mb-[50px]">
             <div class="text-white w-full py-2 px-4 text-lg text-center border-b border-gray-700 border-1">
                 For You
             </div>

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col text-white">
+    <div class="flex flex-col text-white bg-darkBlue">
         <!-- Back button -->
         <router-link :to="{ name: 'forum' }" class="fixed rounded-full p-2 m-3 hover:bg-gray-700">
             <BackButton />
