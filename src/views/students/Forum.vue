@@ -21,7 +21,7 @@
                         </button>
                     </div>
                 </div>
-
+                
                 <Postcard />
             </div>
         </section>
