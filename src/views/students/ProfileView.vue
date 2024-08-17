@@ -73,9 +73,9 @@
         <div class="p-4">Change password</div>
     </modal>
     <modal v-if="logoutModalVisible"  @close="logoutModalVisible = false">
-        <span class="p-6 text-lg">Your session will end.</span>
+        <span class="p-6 text-lg">Bye bitch.</span>
         <button class="mt-auto text-red-400 font-bold p-3 hover:bg-gray-900 rounded-b-lg"
-            @click="logout">Confirm
+            @click="logout">💅
     </button>
     </modal>
 </template>

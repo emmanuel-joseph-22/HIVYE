@@ -2,7 +2,7 @@
     <div 
         v-for="post in Object.keys(posts_container).reverse()"
         :key="post" 
-        class="flex flex-col border-b border-1 w-full border-gray-700 text-white hover:bg-gray-950"
+        class="flex flex-col border-y border-1 w-full border-gray-700 text-white hover:bg-gray-950"
         >
         <router-link :to="{ name: 'postView' }" class=" cursor-pointer">
             <!-- header -->
