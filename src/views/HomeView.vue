@@ -47,7 +47,7 @@
     </div> -->
   </nav>
   <!-- mobile nav bar -->
-  <div class="mobile_nav_bar bg-darkBlue border-t border-1 border-gray-600 fixed z-10 flex justify-between items-center bottom-0 w-full p-1 transition-ease-in-out duration-300">
+  <div class="mobile_nav_bar h-[50px] bg-darkBlue border-t border-1 border-gray-600 fixed z-10 flex justify-between items-center bottom-0 w-full p-1 transition-ease-in-out duration-300">
     <div class="flex w-full justify-around">
         <div class="no-underline flex justify-center items-center text-white" 
           v-for="(tab, index) in mobile_nav_tabs" :key="index">

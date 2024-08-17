@@ -1,18 +1,8 @@
 <template>
-    <div class="flex w-full h-screen flex flex-col z-40 fixed">
-        <div class="flex flex-row border-y border-1 border-gray-800 px-2 py-3 text-white font-bold text-xl items-center">
-            <!-- Back button -->
-            <router-link :to="{ name: 'forum' }" class="rounded-full p-2 mr-2 hover:bg-gray-700 block sm:hidden">
-                <BackButton />
-            </router-link>
-            Messages
-            <div class="flex gap-4 ml-auto mr-1 block sm:hidden">
-                <svg-icon type="mdi" :path="groupIcon" @click="toggleGroupChat" class="cursor-pointer"></svg-icon>
-                <svg-icon type="mdi" :path="dmIcon" @click="togglePrivConvo" class="cursor-pointer"></svg-icon>
-            </div>
-        </div>
+    <div class="flex w-full h-screen flex flex-col">
+        <div class="border border-1 border-gray-800 px-4 py-3 text-white font-bold text-xl">Messages</div>
         <div class="w-full flex flex-grow">
-            <div class="hidden sm:inline-block flex border-1 flex-col py-4 gap-2 text-white border-x border-1 h-full border-gray-800">
+            <div class="w-full sm:w-4/12 flex border-1 flex-col py-4 gap-2 text-white border-x border-1 h-full border-gray-800">
                 <div class="py-4 px-8 cursor-pointer hover:text-darkBlue hover:bg-gray-400 transition duration-300 flex flex-row gap-4"
                     :class="{ 'bg-gray-600 font-bold': publicConvoIsActive }"
                     @click="toggleGroupChat">
@@ -28,7 +18,8 @@
                     <span>Health Administrator</span>
                 </div>
             </div>
-            <div class="w-full sm:w-8/12 text-white flex justify-center items-center">
+            <!-- for web -->
+            <div class="w-8/12 text-white flex justify-center items-center hidden sm:inline-block ">
                 <div v-if="hideChats">select a conversation</div>
                 <GroupChat v-if="publicConvoIsActive" />
                 <DirectChat v-if="privConvoIsActive" />
@@ -42,7 +33,7 @@
 <script>
 import GroupChat from './groupChat.vue';
 import DirectChat from './directChat.vue';
-import BackButton from '@/components/buttons/backButton.vue';
+
 import SvgIcon from '@jamescoyle/vue-icon';
 import { mdiAccountGroup } from '@mdi/js';
 import { mdiDoctor } from '@mdi/js';
@@ -50,7 +41,6 @@ export default{
     components: {
         GroupChat,
         DirectChat,
-        BackButton,
         SvgIcon
     },
     data(){

@@ -10,7 +10,7 @@
         </div>
         <div class="text-darkBlue flex flex-row justify-center gap-4">
             <div class="w-1/2 p-2 mt-6 cursor-pointer rounded-lg bg-white hover:bg-gray-300 text-center">Update Profile</div>
-            <div class="w-1/2 p-2 mt-6 cursor-pointer rounded-lg bg-white hover:bg-gray-300 text-center">Logout</div>
+            <div class="w-1/2 p-2 mt-6 cursor-pointer rounded-lg bg-white hover:bg-gray-300 text-center" @click="logout">Logout</div>
         </div>
         
     </section>
@@ -20,14 +20,21 @@
     </section>
 </template>
 
-<script>
-export default{
-    data(){
-        return {
-            displayName: "Emmanuel Joseph",
-            username: "rand-310357923598612"
-        }
+<script setup>
+import { ref } from 'vue';
+import { getAuth, signOut } from 'firebase/auth';
+import { useUserStore } from '@/stores/user';
+const displayName = ref("Emmanuel Joseph");
+const username = ref("rand-310357923598612");
+const useStore = useUserStore();
+
+const logout = async () => {
+    const auth = getAuth();
+    try{
+        await signOut(auth);        
+        useStore.eraseUserState();
+    } catch (error) {
+        console.error("Error signing out: ", error.code, error.message);
     }
 }
-
 </script>

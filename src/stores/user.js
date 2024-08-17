@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, toDisplayString } from 'vue'
 import { defineStore } from 'pinia';
 
 export const useUserStore = defineStore('user', () => {
@@ -14,14 +14,21 @@ export const useUserStore = defineStore('user', () => {
     user_email.value = email;
     displayName.value = DN;
   }
+  function eraseUserState(){
+    user_id.value = null;
+    username.value = null;
+    user_email.value = null;
+    displayName.value = null;
+  }
 
-  // getters
-
+  // lapa getters
+  
   return{
     user_id, 
     username, 
     user_email, 
     displayName, 
     setUserCred,
+    eraseUserState
   }
 });
