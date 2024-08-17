@@ -6,7 +6,7 @@ import Login from '../views/authentication/Login.vue';
 import Signup from '../views/authentication/Signup.vue';
 
 import Forum from '../views/students/Forum.vue';
-import Helplines from '../views/students/Helplines.vue';
+import Helplines_mobile from '../views/students/Helpline_mobile.vue';
 import ChatView from '../views/chats/ChatView.vue';
 import NotifView from '../views/students/Notifications.vue';
 import RiskEstimator from '../views/students/RiskEstimator.vue';
@@ -41,7 +41,7 @@ const router = createRouter({
           {
             path: '/helplines',
             name: 'helplines',
-            component: Helplines
+            component: Helplines_mobile
           },
           {
             path: '/chats',
