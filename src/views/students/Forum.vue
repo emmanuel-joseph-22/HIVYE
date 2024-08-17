@@ -25,58 +25,33 @@
                 <Postcard />
             </div>
         </section>
-        <section class="side_content fixed border-l border-1 border-gray-700  right-0 h-screen text-white transition-linear duration-1000">
-            <div class="text-white w-full py-4 text-lg flex flex-row items-center">
-                <div class="w-1/2 text-center cursor-pointer"
-                    :class="{ 'sideHeadBorder' : helplineActive }"
-                    @click="openHelpineCenter">Helplines</div>
-                <div class="w-1/2 text-center cursor-pointer"
-                    :class="{ 'sideHeadBorder' : testingActive }"
-                    @click="openTestingCenter">Testing Centers</div>
-            </div>
-            <Helplines v-if="helplineActive"/>
-            <TestingCenters v-if="testingActive"/>
+        <section class="side_content fixed border-l border-1 border-gray-700 right-0 h-screen text-white transition-linear duration-1000">
+            <Helpline_mobile />
         </section>
     </div>
 
     <QuizButton />
 </template>
 <script>
-import Helplines from './Helplines.vue';
-import TestingCenters from './TestingCenters.vue';
 import QuizButton from '@/components/buttons/QuizButton.vue';
 import Postcard from '@/components/posts_components/postcard.vue';
 import header from '../../components/navigations/header.vue'; 
+import Helpline_mobile from './Helpline_mobile.vue';
 export default{
     components: {
         header,
         Postcard,
-        Helplines,
-        TestingCenters,
+        Helpline_mobile,
         QuizButton
     },
     data(){
         return {
            dataLoaded: true,
-           helplineActive: true,
-           testingActive: false,
            anonymous: false,
            post_buttons: false,
         }
     },
     methods: {
-        openHelpineCenter(){
-            if(this.helplineActive == false){
-                this.helplineActive = true;
-                this.testingActive = false;
-            }
-        },
-        openTestingCenter(){
-            if(this.testingActive == false){
-                this.helplineActive = false;
-                this.testingActive = true;
-            }
-        },
         adjustTextarea(){
             const textarea = this.$refs.post_textarea;
 
@@ -111,6 +86,7 @@ export default{
         width: 100%;
     }
 }
+
 .sideHeadBorder{
     border-bottom: 3px solid white;
     font-weight: bold;

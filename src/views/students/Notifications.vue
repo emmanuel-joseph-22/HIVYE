@@ -7,36 +7,25 @@
             </div>
             <div class="flex flex-col w-full py-4">
                 <div v-for="notif in fetched_data"
-                    class="flex flex-col mx-auto px-4 py-2 my-2 w-8/12 text-white border border-1 border-gray-700 rounded-lg hover:scale-105 transition duration-500 cursor-pointer">
+                    class="flex flex-col mx-auto px-4 py-2 my-2 w-10/12 text-white border border-1 border-gray-700 rounded-lg hover:scale-105 transition duration-500 cursor-pointer">
                     <div>{{ notif.user }} recently shared a post.</div>
                     <div>{{ notif.date }}</div>
                 </div>
             </div>
         </section>
         <section class="side_content border-l border-1 border-gray-700 fixed right-0 h-screen text-white transition-linear duration-1000">
-            <div class="text-white w-full py-4 text-lg flex flex-row items-center">
-                <div class="w-1/2 text-center cursor-pointer"
-                    :class="{ 'sideHeadBorder' : helplineActive }"
-                    @click="openHelpineCenter">Helplines</div>
-                <div class="w-1/2 text-center cursor-pointer"
-                    :class="{ 'sideHeadBorder' : testingActive }"
-                    @click="openTestingCenter">Testing Centers</div>
-            </div>
-            <Helplines v-if="helplineActive"/>
-            <TestingCenters v-if="testingActive"/>
+            <Helpline_mobile />
         </section>
     </div>
 </template>
 
 <script>
 import QuizButton from '@/components/buttons/QuizButton.vue';
-import Helplines from './Helplines.vue';
-import TestingCenters from './TestingCenters.vue';
+import Helpline_mobile from './Helpline_mobile.vue';
 export default{
     components: {
         QuizButton,
-        Helplines,
-        TestingCenters
+        Helpline_mobile
     },
     data(){
         return{
@@ -59,18 +48,7 @@ export default{
         }
     },
     methods: {
-        openHelpineCenter(){
-            if(this.helplineActive == false){
-                this.helplineActive = true;
-                this.testingActive = false;
-            }
-        },
-        openTestingCenter(){
-            if(this.testingActive == false){
-                this.helplineActive = false;
-                this.testingActive = true;
-            }
-        }
+       
     }
 }
 </script>
