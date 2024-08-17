@@ -25,7 +25,7 @@ export default {
       newMessage: '',
       fetched_chats: [
         // Example messages
-        { id: 1, user: 'deck ni jaekyung', chat: 'rtgertjrtktydbrt', date: '2024-07-25' },
+        { id: 1, user: 'ej', chat: 'rtgertjrtktydbrt', date: '2024-07-25' },
         { id: 2, user: 'camus', chat: 'Hi', date: '2024-07-25' },
         {
 
@@ -35,24 +35,20 @@ export default {
           id: 4, user: 'ariana', chat: 'yuh', date: '10-07-2024'
         },
         {
-          id: 5, user: 'ldr', chat: 'my pussy taste like pepsi cola', date: '10-07-2024'
+          id: 5, user: 'whooo', chat: 'this bitch', date: '10-07-2024'
         },
         {
-          id: 6, user: 'phoebe', chat: 'growls', date: '10-07-2024'
+          id: 6, user: 'ph', chat: 'growls', date: '10-07-2024'
         },
         {
           id: 7, user: 'hatdog', chat: 'yum', date: '10-07-2024'
         },
         {
-          id: 8, user: 'bjrok', chat: 'i am grateful grapefruit', date: '10-07-2024'
+          id: 8, user: 'bjork', chat: 'i am grateful grapefruit', date: '10-07-2024'
         },
         {
           id: 9, user: 'bitch', chat: 'ito ehdf', date: '10-07-2024'
         },
-        {
-          id: 10, user: 'ariana', chat: 'yuh', date: '10-07-2024'
-        },
-        // Add more messages as needed
       ],
     };
   },

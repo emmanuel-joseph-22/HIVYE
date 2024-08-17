@@ -80,22 +80,22 @@
                 <p class="text-3xl text-white">Percentage: {{ calculatePercentage }}%</p>
                 <p class="text-2xl text-white">{{ calculateLabel }} Risk</p>
                 <div v-if="calculateLabel === 'Very low'" class="text-center my-2">
-                    <img class="mx-auto my-2 max-w-[80px] rounded-full" src="/public/riskQuiz/vlow.png" alt="Very Low Risk Icon" />
+                    <img class="mx-auto my-2 max-w-[80px] rounded-full" src="/riskQuiz/vlow.png" alt="Very Low Risk Icon" />
                     <p class="my-2 text-lg">Your risk of HIV transmission is extremely low. Continue practicing preventive measures and regular testing to maintain this low risk.</p>
                 </div>
                 <div v-if="calculateLabel === 'Low'" class="text-center my-2" >
-                    <img class="mx-auto my-2 max-w-[80px] rounded-full" src="/public/riskQuiz/low.png" alt="Low Risk Icon" />
+                    <img class="mx-auto my-2 max-w-[80px] rounded-full" src="/riskQuiz/low.png" alt="Low Risk Icon" />
                     <p class="my-2 text-lg">Your risk of HIV transmission is relatively low. Ensure to continue preventive practices and regular testing to sustain this low risk.</p>                </div>
                 <div v-if="calculateLabel === 'Moderate'" class="text-center my-2">
-                    <img class="mx-auto my-2 max-w-[80px] rounded-full" src="/public/riskQuiz/mod.png" alt="Moderate Risk Icon" />
+                    <img class="mx-auto my-2 max-w-[80px] rounded-full" src="/riskQuiz/mod.png" alt="Moderate Risk Icon" />
                     <p class="my-2 text-lg">You're at a moderate risk of HIV transmission. Reassess behaviors, consider preventive options like PrEP, and prioritize regular testing to manage this moderate risk</p>
                 </div>
                 <div v-if="calculateLabel === 'High'" class="text-center my-2">
-                    <img class="mx-auto my-2 max-w-[80px] rounded-full" src="/public/riskQuiz/high.png" alt="High Risk Icon" />
+                    <img class="mx-auto my-2 max-w-[80px] rounded-full" src="/riskQuiz/high.png" alt="High Risk Icon" />
                     <p class="my-2 text-lg">Your risk of HIV transmission is high. Immediate actions are necessary. Consult a healthcare professional, consider PrEP, adopt safer practices, and prioritize regular testing to lower this high risk.</p>
                 </div>
                 <div v-if="calculateLabel === 'Very high'" class="text-center my-2">
-                    <img class="mx-auto my-2 max-w-[80px] rounded-full" src="/public/riskQuiz/vhigh.png" alt="Very High Risk Icon" />
+                    <img class="mx-auto my-2 max-w-[80px] rounded-full" src="/riskQuiz/vhigh.png" alt="Very High Risk Icon" />
                     <p class="my-2 text-lg">Your risk of HIV transmission is very high. Seek immediate medical advice, consider PrEP, strictly adhere to safer practices, and ensure frequent testing to address and lower this very high risk.</p>
                 </div>
 
