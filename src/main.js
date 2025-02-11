@@ -1,6 +1,6 @@
 import './styles/output.css';
 import './styles/index.css';
-import '@mdi/font/css/materialdesignicons.min.css'; // Import Material Design Icons
+import '@mdi/font/css/materialdesignicons.min.css'; // Import MDI
 
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
@@ -40,21 +40,19 @@ const userStore = useUserStore();
 onAuthStateChanged(auth, async user => {
   if (user) {
     try {
-      // if user cred is not in state management
+      // if user cred is not in state
       if(!userStore.user_id){
-           // state management here
            userStore.setUserCred(user.uid, user.email, user.displayName);
       }
       
       console.log('welcome: ', userStore.user_id, userStore.user_email);
-      // Redirect to the previous route or the home page if no previous route exists
+      
       router.push('/'); 
     } catch (error) {
       console.error('error authenticating current user: ', error);
-      // Handle error
     }
   } else {
-    // User is not authenticated, redirect to the login page or perform any other action
+    // User is not authenticated, redirect to the login page
     router.push('/login');
   }
 });
