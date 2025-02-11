@@ -4,12 +4,6 @@ This project is based on [HIVYE](https://github.com/AaronVillano/Mobile_Applicat
 ## Project Setup
 ```
 npm i
-```
-### Compiles and hot-reloads for development
-```
 npm run dev
-```
-### Compiles and minifies for production
-```
 npm run build
 ```
