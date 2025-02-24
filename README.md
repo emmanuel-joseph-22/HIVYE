@@ -5,6 +5,8 @@ I kept firebase for database and cloud service. This vue project is built in Vit
 
 When it comes to code styles, the project uses a mix of options API and composition API which wasn't initially intended. I am still trying to get used to the newer style which I really don't like.
 
+I also built a mobile version in android. Will try to build for iOS soon.
+
 ## Project Setup
 ```
 npm i
