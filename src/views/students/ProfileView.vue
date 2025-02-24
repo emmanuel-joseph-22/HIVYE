@@ -1,23 +1,32 @@
 <template>
-    <section class="max-w-[800px] flex flex-col justify-center text-white p-8 border-b border-1 border-gray-500">
-        <div class="flex gap-8">
-            <div class="profile_pic min-w-[60px] bg-matcha min-h-[60px] rounded-full"></div>
+    <div class="flex flex-row">
+        <section class="profile_section mb-[50px]">
+            <section class="flex flex-col justify-center text-white p-8 border-b border-1 border-gray-500">
+                <div class="flex gap-8">
+                    <div class="profile_pic min-w-[60px] bg-matcha min-h-[60px] rounded-full"></div>
 
-            <div class="profile">
-                <h1 class="text-2xl font-bold">{{ displayName }}</h1>
-                <span class="text-gray-300">@{{ username }}</span>
-            </div>
-        </div>
-        <div class="text-darkBlue flex flex-row justify-center gap-4">
-            <div class="w-1/2 p-2 mt-6 cursor-pointer rounded-lg bg-white hover:bg-gray-300 text-center" @click="udpateProfileModalVisible=true">Update Profile</div>
-            <div class="w-1/2 p-2 mt-6 cursor-pointer rounded-lg bg-white hover:bg-gray-300 text-center" @click="logoutModalVisible=true">Logout</div>
-        </div>
-        
-    </section>
+                    <div class="profile">
+                        <h1 class="text-2xl font-bold">{{ displayName }}</h1>
+                        <span class="text-gray-300">@{{ username }}</span>
+                    </div>
+                </div>
+                <div class="text-darkBlue flex flex-row justify-center gap-4">
+                    <div class="w-1/2 p-2 mt-6 cursor-pointer rounded-lg bg-white hover:bg-gray-300 text-center" @click="udpateProfileModalVisible=true">Update Profile</div>
+                    <div class="w-1/2 p-2 mt-6 cursor-pointer rounded-lg bg-white hover:bg-gray-300 text-center" @click="logoutModalVisible=true">Logout</div>
+                </div>
+                
+            </section>        
+            <section class="text-gray-300 p-8 flex justify-center">
+                no posts yet
+            </section>
+        </section>
+        <section class="side_content fixed border-l border-1 border-gray-700 right-0 h-screen text-white transition-linear duration-1000">
+            <Helpline_mobile />
+        </section>        
+    </div>
 
-    <section class="max-w-[800px] text-gray-300 p-8 flex justify-center">
-        no posts yet
-    </section>
+
+
     <modal v-if="udpateProfileModalVisible"  @close="udpateProfileModalVisible = false">
         <span class="p-6 text-lg">Update Profile</span>
 
@@ -73,9 +82,10 @@
         <div class="p-4">Change password</div>
     </modal>
     <modal v-if="logoutModalVisible"  @close="logoutModalVisible = false">
-        <span class="p-6 text-lg">Bye bitch.</span>
+        <span class="p-6 text-lg">Log out ka na?</span>
+        <img src="\logo\exit.jpg" class="mx-9"/>
         <button class="mt-auto text-red-400 font-bold p-3 hover:bg-gray-900 rounded-b-lg"
-            @click="logout">💅
+            @click="logout">bye bitch
         </button>
     </modal>
 </template>
@@ -85,6 +95,8 @@ import modal from '@/components/modals/modal.vue';
 import { ref } from 'vue';
 import { getAuth, signOut } from 'firebase/auth';
 import { useUserStore } from '@/stores/user';
+import Helpline_mobile from './Helpline_mobile.vue';
+
 const displayName = ref("Emmanuel Joseph");
 const UID = ref(null);
 const username = ref("quirkymammoth");
@@ -112,3 +124,24 @@ const updateProfileInfo = async () => {
     console.log("profile updated");
 }
 </script>
+
+<style scoped>
+.profile_section{
+    width: calc(100% - 402px);
+    z-index: 1;
+}
+
+.side_content{
+    width: 400px;
+    z-index: 2;
+}
+@media (max-width: 1024px) {
+    .side_content{
+        display: none;
+    }
+    .forum_section{
+        width: 100%;
+    }
+}
+
+</style>

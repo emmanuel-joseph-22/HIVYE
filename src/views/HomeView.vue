@@ -2,7 +2,10 @@
   <!-- right sidebar for web -->
   <nav class="fixed side_bar h-full border-r border-1 border-gray-700 flex flex-col justify-center gap-4 transition-linear duration-500">
     <div class="w-full mt-8 absolute top-0">
-      <img src="./../assets/HIVYE_logo.png" class="w-1/3 mx-auto" />    
+      <div class="flex mx-auto text-white">
+        <img src="\logo\HIVYE_logo.png" class="w-1/4" />    
+          HIVYE
+      </div>
     </div>
     <div v-for="(tab, index) in side_bar_tabs" :key="index">
       <div class="w-11/12 mx-auto rounded-lg text-xl hover:bg-gray-700 text-white transition duration-300 cursor-pointer"
@@ -14,7 +17,6 @@
         </router-link>
       </div>
     </div>
-
   </nav>
   <!-- nav bar for mobile-->
   <div class="mobile_nav_bar h-[50px] bg-darkBlue border-t border-1 border-gray-600 fixed z-10 flex justify-between items-center bottom-0 w-full p-1 transition-ease-in-out duration-300">
@@ -35,11 +37,9 @@
   <main class="main_content transition-linear duration-500 h-full">
       <router-view></router-view>  
   </main>
-
 </template>
 <script>
 import { useRoute } from "vue-router";
-
 
 import HomeIcon from '@/components/icons/home_icon.vue';
 import ChatIcon from '@/components/icons/chat_icon.vue';
@@ -78,7 +78,7 @@ export default{
           name: 'notifications', active: false, route: '/notifications', displayName: 'Notifications', active: false, icon: NotifIcon
         },
         {
-          name: 'profile', active: false, route: '/profile', displayName: 'EJ', active: false, icon: AccountIcon
+          name: 'profile', active: false, route: '/profile', displayName: 'Profile', active: false, icon: AccountIcon
         },
       ],
       // mobile nav
