@@ -1,5 +1,5 @@
 <template>
-  <!-- sidebar for web -->
+  <!-- right sidebar for web -->
   <nav class="fixed side_bar h-full border-r border-1 border-gray-700 flex flex-col justify-center gap-4 transition-linear duration-500">
     <div class="w-full mt-8 absolute top-0">
       <img src="./../assets/HIVYE_logo.png" class="w-1/3 mx-auto" />    
