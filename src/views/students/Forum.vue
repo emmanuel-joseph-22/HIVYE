@@ -77,6 +77,7 @@ export default{
 }
 .side_content{
     width: 400px;
+    z-index: 2;
 }
 @media (max-width: 1024px) {
     .side_content{
