@@ -2,12 +2,14 @@
   <!-- right sidebar for web -->
   <nav class="fixed side_bar h-full border-r border-1 border-gray-700 flex flex-col justify-center gap-4 transition-linear duration-500">
     <div class="w-full mt-8 absolute top-0">
-      <div class="flex mx-auto text-white">
-        <img src="\logo\HIVYE_logo.png" class="w-1/4" />    
-          HIVYE
+      <div class="flex text-white w-full mx-auto">
+        <div class="mx-auto flex">
+          <img src="\logo\HIVYE_logo.png" class="w-[60px]" />    
+          <span class="mt-5 mx-2 text-lg font-bold hidden sm:hidden md:block">HIVYE</span>
+        </div>
       </div>
     </div>
-    <div v-for="(tab, index) in side_bar_tabs" :key="index">
+    <div v-for="(tab, index) in side_bar_tabs" :key="index" class="">
       <div class="w-11/12 mx-auto rounded-lg text-xl hover:bg-gray-700 text-white transition duration-300 cursor-pointer"
         @click="toggleTab(index)"
         :class="{ 'text-darkBlue bg-matcha': tab.active }">

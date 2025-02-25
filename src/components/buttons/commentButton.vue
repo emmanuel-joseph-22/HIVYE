@@ -4,7 +4,6 @@
                 :path="path" 
                 class="cursor-pointer hover:text-matcha"
         ></svg-icon>
-        <span>{{ commentCount }}</span>
     </div>
 </template>
   
@@ -19,7 +18,6 @@
     data() {
       return {
         path: mdiChatOutline,
-        commentCount: '3'
       }
     },
     methods: {

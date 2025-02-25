@@ -139,7 +139,7 @@ const updateProfileInfo = async () => {
     .side_content{
         display: none;
     }
-    .forum_section{
+    .profile_section{
         width: 100%;
     }
 }

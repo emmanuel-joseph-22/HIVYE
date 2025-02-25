@@ -9,10 +9,11 @@ export const useUserStore = defineStore('user', () => {
   const displayName = ref(null);
 
   // actions
-  function setUserCred(UID, email, DN){
+  function setUserCred(UID, email, DN, UN){
     user_id.value = UID;
     user_email.value = email;
     displayName.value = DN;
+    username.value = UN;
   }
   function eraseUserState(){
     user_id.value = null;

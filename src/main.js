@@ -42,7 +42,7 @@ onAuthStateChanged(auth, async user => {
     try {
       // if user cred is not in state
       if(!userStore.user_id){
-           userStore.setUserCred(user.uid, user.email, user.displayName);
+        userStore.setUserCred(user.uid, user.email, user.displayName, user.username);
       }
       
       console.log('welcome: ', userStore.user_id, userStore.user_email);

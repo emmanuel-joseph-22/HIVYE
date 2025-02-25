@@ -14,3 +14,5 @@ function getCurrentTime(){
     const timeInGMTPlus8 = currentDate.toLocaleString('en-US', options);
     return timeInGMTPlus8;
 }
+
+export { getCurrentTime }
