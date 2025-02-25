@@ -1,58 +1,52 @@
 <template>
   <div id="chat-container" class="relative w-full h-full flex flex-col">
     <!-- Chatbox (Scrollable) -->
-    <div id="chatbox" class="flex sm:h-auto flex-col-reverse overflow-y-scroll py-4 px-6">
-      <div v-for="message in fetched_chats"
-        :key="message.id"
+    <div id="chatbox" class="flex h-auto flex-col-reverse overflow-y-scroll py-4 px-6 sm:mb-0 mb-12">
+      <div v-for="(message, key) in messages.slice().reverse()"
+        :key="key"
         class="my-2 flex flex-col w-auto">
-        <div class="text-sm ml-1">{{ message.user }}</div>
-        <div class="py-2 px-3 rounded-xl bg-gray-700 border border-1 border-gray-600 mt-1 mb-2 inline-block max-w-max">{{ message.chat }}</div>
-        <div class="text-xs">{{ message.date }}</div>
+          <template v-if="message.sender === sender">
+            <div class="relative border-box inline ml-auto flex">
+              <deleteButton @click="deleteMessage(message.key)" class="m-2" />
+              <div class="py-2 px-3 rounded-xl bg-blue-700 border border-1 border-gray-600 mt-1 mb-2 inline-block max-w-max">{{ message.msg }}</div>
+            </div>
+          </template>
+          <template v-if="message.sender !== sender">
+            <!-- <div class="sender">{{ message.sender }}</div> -->
+            <div class="text-sm ml-1 text-white">{{ message.sender }}</div>
+            <!-- <div class="sep">{{ message.msg }}</div> -->
+            <div class="py-2 px-3 rounded-xl bg-gray-700 border border-1 border-gray-600 mt-1 mb-2 inline-block max-w-max">{{ message.msg }}</div>
+            <!-- <div class="text-xs">{{ message.date }}</div> -->
+          </template>
       </div>
     </div>
     <!-- Message Prompt -->
     <div id="message-prompt" class="absolute sm:bottom-1 bottom-0 left-0 right-0 flex flex-row justify-center items-center px-4 py-2 border-t border-1 border-gray-700 bg-darkBlue">
-      <textarea v-model="newMessage" class="w-10/12 rounded-lg p-2 max-h-10 bg-transparent border-none overflow-y-auto focus:border-none focus:outline-none" placeholder="Type your message..."></textarea>
-      <button @click="sendMessage" class="w-2/12 ml-4 bg-matcha text-white rounded-lg p-2 hover:bg-gray-600">Send</button>
+      <textarea id="msgTxt" class="w-10/12 rounded-lg p-2 max-h-10 bg-transparent border-none overflow-y-auto focus:border-none focus:outline-none" placeholder="Type your message..."></textarea>
+      <button @click="sendMsg" class="w-2/12 ml-4 bg-matcha text-white rounded-lg p-2 hover:bg-gray-600">Send</button>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      newMessage: '',
-      fetched_chats: [
-        // Example messages
-        { id: 1, user: 'ej', chat: 'rtgertjrtktydbrt', date: '2024-07-25' },
-        { id: 2, user: 'camus', chat: 'Hi', date: '2024-07-25' },
-        {
+<script setup>
+import deleteButton from '@/components/icons/delete.vue';
+import { ref, onMounted } from 'vue';
+import { HIVYE_database as db } from "@/main";
+import { ref as firebase_ref, set } from 'firebase/database';
+import { onChildAdded, onChildRemoved, remove } from 'firebase/database';
+import { useUserStore } from '@/stores/user';
+import { data } from 'autoprefixer';
 
-          id: 3, user: 'manok sa baliwag', chat: 'eto si ano', date: '10-07-2024'
-        },
-        {
-          id: 4, user: 'ariana', chat: 'yuh', date: '10-07-2024'
-        },
-        {
-          id: 5, user: 'whooo', chat: 'this bitch', date: '10-07-2024'
-        },
-        {
-          id: 6, user: 'ph', chat: 'growls', date: '10-07-2024'
-        },
-        {
-          id: 7, user: 'hatdog', chat: 'yum', date: '10-07-2024'
-        },
-        {
-          id: 8, user: 'bjork', chat: 'i am grateful grapefruit', date: '10-07-2024'
-        },
-        {
-          id: 9, user: 'bitch', chat: 'ito ehdf', date: '10-07-2024'
-        },
-      ],
-    };
-  },
-  mounted() {
+
+//GROUPCHAT
+const messages = ref([]);
+
+const userStore = useUserStore();
+// const sender = userStore.username;
+const sender = ref('si_boy_muna');
+const sender_id = userStore.user_id;
+
+onMounted(() => {
     const chatContainer = document.getElementById('chat-container');
     const chatbox = document.getElementById('chatbox');
     const messagePrompt = document.getElementById('message-prompt');
@@ -66,28 +60,113 @@ export default {
     });
 
     observer.observe(chatbox, { childList: true, subtree: true });
-  },
-  methods: {
-    sendMessage() {
-      if (this.newMessage.trim() !== '') {
-        this.fetched_chats.unshift({
-          id: Date.now(),
-          user: 'Me',
-          chat: this.newMessage,
-          date: new Date().toISOString().split('T')[0],
-        });
-        this.newMessage = '';
-        this.$nextTick(() => {
-          const chatbox = document.getElementById('chatbox');
-          chatbox.scrollTop = 0; // Scroll to the top of the chatbox
-        });
+})
+      
+// TO RECEIVE MSG
+onChildAdded(firebase_ref(db, 'messages/'), (data) => {
+  messages.value.push({
+      key: data.key,
+      sender: data.val().sender,
+      msg: data.val().msg,
+      });
+});
+
+// TO DELETE MSG
+const deleteMessage = (key) => {
+  remove(firebase_ref(db, 'messages/' + key))
+    .then(() => {
+      // Remove the deleted message from the local array
+      const index = messages.value.findIndex((msg) => msg.key === key);
+      if (index !== -1) {
+        messages.value.splice(index, 1);
       }
-    },
-  },
+    })
+    .then(()=>{
+        // remove grouphcat msg from interactions records
+        remove(firebase_ref(db, "users/" + sender_id.value + '/interactions/messages/' + key))
+    })
+    .catch((error) => {
+      console.error('Error deleting message:', error);
+    });
+};
+  
+// WHEN MSG IS DELETED
+onChildRemoved(firebase_ref(db, 'messages'), (data) => {
+  const key = data.key;
+  // Remove the deleted message from the local array
+  const index = messages.value.findIndex((msg) => msg.key === key);
+  if (index !== -1) {
+    messages.value.splice(index, 1);
+  }
+});
+
+// const sendMessage() = {
+//       if (this.newMessage.trim() !== '') {
+//         this.fetched_chats.unshift({
+//           id: Date.now(),
+//           user: 'Me',
+//           chat: this.newMessage,
+//           date: new Date().toISOString().split('T')[0],
+//         });
+//         this.newMessage = '';
+//         this.$nextTick(() => {
+//           const chatbox = document.getElementById('chatbox');
+//           chatbox.scrollTop = 0; // Scroll to the top of the chatbox
+//         });
+//       }
+//     },
+//   },
+// send message in gc
+const sendMsg = () => {
+    const msgTxt = document.getElementById("msgTxt");
+    const msg = msgTxt.value;
+    const timestamp = new Date().getTime();
+
+    set(firebase_ref(db, "messages/" + timestamp), {
+        msg: msg,
+        sender: sender.value
+    }).then(() => {
+        // record groupchat interaction
+        set(firebase_ref(db, "users/"+sender_id.value+"/interactions/messages/"+ timestamp), {
+        msg: msg,
+        })
+    })
+
+    msgTxt.value = "";
 };
 </script>
 
 <style>
+.outer {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+}
+#inner {
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.me {
+  background: #d3d2d2;
+  color: #000;
+  border-radius: 10px;
+  text-align: left;
+  margin-left: 15%;
+  max-width: auto;
+}
+.notMe {
+  background: #fff;
+  color: #000;
+  width: auto;
+  border-radius: 10px;
+  margin-bottom: 13%;
+  justify-content: left;
+  min-width: 20%;
+  max-width: 80%;
+}
+
 /* Custom CSS for upward expansion */
 #chat-container.expand-upward #chatbox {
   bottom: 0;

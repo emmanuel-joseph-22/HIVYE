@@ -1,9 +1,9 @@
 <template>
     <div class="flex w-full h-screen flex flex-col">
-        <div class="border border-1 border-gray-800 px-4 py-3 text-white font-bold text-xl">Messages</div>
+        <div class="msg_bar border border-1 border-gray-800 px-4 py-3 text-white font-bold text-xl">Messages</div>
         <div class="w-full flex flex-col sm:flex-row sm:flex-grow flex">
             <div class="fixed top-0 right-0 sm:right-0 sm:top-0 sm:relative w-1/12 sm:w-4/12 h-1/12 scale-115 sm:scale-100 sm:h-full flex border-1 sm:flex-col py-2 sm:py-4 gap-2 text-white border-0 sm:border-x border-1 border-gray-800 mx-16 sm:mx-0 ">
-                <div class="sm:py-4 sm:px-8 p-2 cursor-pointer hover:text-darkBlue hover:bg-gray-400 transition duration-300 flex flex-row gap-4 sm:rounded-none rounded-3xl"
+                <div class="chat_icon sm:py-4 sm:px-8 p-2 cursor-pointer hover:text-darkBlue hover:bg-gray-400 transition duration-300 flex flex-row gap-4 sm:rounded-none rounded-3xl"
                     :class="{ 'bg-gray-600 font-bold': publicConvoIsActive }"
                     @click="toggleGroupChat">
                     <svg-icon type="mdi" :path="groupIcon"></svg-icon>
@@ -11,7 +11,7 @@
                     <span class="hidden sm:block">HIVYE Group</span>
                     
                 </div>
-                <div class="sm:py-4 sm:px-8 p-2 cursor-pointer hover:text-darkBlue hover:bg-gray-400 transition duration-300 flex flex-row gap-4 sm:rounded-none rounded-3xl"
+                <div class="chat_icon sm:py-4 sm:px-8 p-2 cursor-pointer hover:text-darkBlue hover:bg-gray-400 transition duration-300 flex flex-row gap-4 sm:rounded-none rounded-3xl"
                     :class="{ 'bg-gray-600 font-bold': privConvoIsActive }"
                     @click="togglePrivConvo">
                     <svg-icon type="mdi" :path="dmIcon"></svg-icon>
@@ -67,3 +67,6 @@ export default{
     }
 }
 </script>
+
+<style scoped>
+</style>

@@ -3,9 +3,8 @@
         <!-- login component -->
         <div class="h-screen p-0 sm:p-12 w-full md:w-1/2 lg:w-1/3 xl:1/4  mx-auto">
             <div class="auth_card container h-full text-center flex flex-col items-center justify-center py-8 px-5 mx-auto shadow-none sm:shadow-lg ">
-                <img src="./../../assets/HIVYE_logo.png" class="w-1/3 mx-auto"/>
-                <!-- <h1 class="my-12">Login</h1> -->
-
+                <img src="/logo/HIVYE_logo.png" class="w-1/3 mx-auto"/>
+                <!-- <h1 class="my-12">Login</h1> --> 
                 <div class=" flex flex-col px-6 my-8 w-full">
                     <label for="user_email" class="font-bold mb-2 text-left">Email</label>
                     <input 
@@ -124,9 +123,9 @@ const login = async () => {
         const userId = user.uid; // Retrieve the user ID (UID)
         const user_email = user.email;
         const displayName = user.displayName;
-
+        const username = user.username;
         // state management here
-        userStore.setUserCred(userId, user_email, displayName);
+        userStore.setUserCred(userId, user_email, displayName, username);
 
         router.push('/forum');
         

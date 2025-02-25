@@ -34,9 +34,10 @@ const router = createRouter({
             component: Forum
           },
           {
-            path: '/post_id',
+            path: '/post/:id',
             name: 'postView',
-            component: postView
+            component: postView,
+            props: true
           },
           {
             path: '/helplines',
