@@ -1,59 +1,49 @@
-import { firebase_app as db_app, HIVYE_database as db  } from "./../main";
+import { firebase_app as db_app, HIVYE_database  } from "./../main";
 import { getAuth, onAuthStateChanged, updateEmail, updatePassword,  reauthenticateWithCredential, EmailAuthProvider  } from'firebase/auth';
-import { ref as db_ref, get, update as up } from 'firebase/database';
+import { ref, onValue} from 'firebase/database';
 
-// this caches current user's username for easy access 
-let user_id = [];
+const fetchUserData = (uid) => {
+    return new Promise((resolve, reject) => {
+      const user_ref = ref(HIVYE_database, 'users/' + uid);
+  
+      onValue(user_ref, (snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          resolve([data.display_name, data.username, data.birthday]); // ✅ Resolve with data
+        } else {
+          reject("User data not found");
+        }
+      }, (error) => {
+        reject(error);
+      });
+    });
+}
 
-// for current user's uid initiated from firebase authentication
-let curr_id = [];
+const fetchUserPostsId = (uid) => {
+    return new Promise((resolve, reject) => {
+      const user_ref = ref(HIVYE_database, 'users/' + uid);
+  
+      onValue(user_ref, (snapshot) => {
+        if (snapshot.exists()) {
+          const data = Object.keys(snapshot.val().interactions.user_posts);
+          console.log('post ids ni user: ', data)
+          resolve(data); // ✅ Resolve with data
+        } else {
+          reject("User data not found");
+        }
+      }, (error) => {
+        reject(error);
+      });
+    });
+}
 
-let acc_id = [];
+
 
 export const admin_name = "Counselor"
 
 function getaccID(data){
     acc_id = []
     acc_id.push(data)
-}
-// clears the container once the user logs out
-function removeUser() {
-    user_id = []
-}
-function addUid(data){
-    curr_id = []
-    curr_id.push(data)
-}
-function addUser(data){
-    removeUser()
-    user_id.push(data)
-}
-function getUsername(){
-    const auth = getAuth(db_app)
-    const queri = db_ref(db, "users");
-    onAuthStateChanged(auth, (user) => {
-        if(user){
-            // User is signed in, you can access the user's information
-            const uid = user.uid;
-            // search for username with matching uid
-            get(queri).then((snapshot) => {
-                snapshot.forEach((childSnapshot) => {
-                    const user_key = childSnapshot.key
-                    const username_id = childSnapshot.child('username').val();
-                    
-                    if(user_key === uid){
-                        up(db_ref(db, "users/" + user_key),{ 'status': "active" })
-                        addUser(username_id)
-                        addUid(user_key)
-                        console.log("current user: " + user_id[0])
-                    }
-                });
-            });
-        } else {
-            // No user is signed in
-            console.log('No user is currently signed in.');
-        }
-    })
 }
 function changePassword(newPassword) {
     const user = getAuth(db_app).currentUser;
@@ -104,4 +94,4 @@ function changeUsername(newUsername){
 }
 
 
-export { user_id, curr_id, addUser, removeUser, getUsername, changeUsername, changeEmail, changePassword, getaccID, acc_id }
+export { fetchUserData, fetchUserPostsId}

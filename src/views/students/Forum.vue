@@ -47,8 +47,8 @@
                         class=" cursor-pointer">
                         <!-- header -->
                         <div class="flex flex-row w-full items-center px-4 pt-4">
-                            <h1 class="font-bold text">{{ posts_container[post].user }}</h1>
-                            <span class="ml-auto">Posted on {{ posts_container[post]['time'] + ' | ' + formatDate(posts_container[post]['date']) }}</span>
+                            <h1 class="font-bold text">{{ posts_container[post].display_name }}</h1>
+                            <span class="ml-auto">Posted {{ timeAgo(posts_container[post]['time']) }}</span>
                         </div>
                         <!-- post content -->
                         <div class="flex w-full items-center text-left px-4 py-2 text-xl">
@@ -57,20 +57,20 @@
                         <!-- img -->
                          <!-- image -->
                         <div v-show="`${posts_container[post]['url']}` != 'empty'">
-                            <img class="w-10/12 sm:w-8/12 mx-auto sm:ml-6 rounded-lg h-auto" :src="`${posts_container[post]['url']}`" alt="Image" />
+                            <img class="w-10/12 sm:w-8/12 mx-auto sm:ml-6 rounded-lg h-auto my-5" :src="`${posts_container[post]['url']}`" alt="Image" />
                         </div>
                     </router-link>
                     <!-- interactions and metrics -->
-                    <div class="flex flex-row w-full gap-3 px-4 items-center my-2">
+                    <div class="flex flex-row w-full gap-3 px-4 items-center mt-2 mb-4">
                         <!-- for like button kaso di ko pa naayos -->
-                        <div class="flex items-center cursor-pointer my-5 gap-1 hover:text-matcha" id="likeBtn" @click="handleItemLike(post)">
+                        <div class="flex items-center cursor-pointer gap-1 hover:text-matcha" id="likeBtn" @click="handleItemLike(post)">
                             <unlikedButton v-show="!user_liked[post]" />
                             <likedButton v-show="user_liked[post]"/>
                             <!-- calculate the length of likes obj -->
                             <span>{{likeCount[post]}} likes</span>
                         </div>
                         <!-- comment icon den -->
-                        <div class="flex items-center cursor-pointer my-5 gap-1 hover:text-matcha" id="commentBtn" @click="display_comment(post)">
+                        <div class="flex items-center cursor-pointer gap-1 hover:text-matcha" id="commentBtn" @click="display_comment(post)">
                             <CommentButton />
                             <!--<i class="fas fa-comment fa-xl"></i>-->
                             <span>Comment</span>
@@ -107,7 +107,7 @@ import { HIVYE_database as db, HIVYE_storage as storage } from "@/main";
 import { useUserStore } from '@/stores/user';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { ref as firebase_ref, set as fireset, get, remove as firetrash } from 'firebase/database';
-import { getCurrentTime } from '@/scripts/dateAndTime';
+import { getCurrentTime, formatDate, timeAgo } from '@/scripts/dateAndTime';
 
 export default{
     components: {
@@ -120,12 +120,18 @@ export default{
         likedButton,
         unlikedButton
     },
+    setup(){
+        return {
+            formatDate, timeAgo 
+        }
+    },
     data(){
         return {
             post_buttons: false,
             imageUrl: '',
             user_id: null,
             username: null,
+            display_name: null,
             post: '',
             date: '',
             time: '',
@@ -153,6 +159,7 @@ export default{
 
             characterLimit: 50, //for text truncation..di nagawa
             user_liked: {},
+            
         }
     },
     methods: {
@@ -173,8 +180,9 @@ export default{
         async submit_post(){
             try {
                 const userStore = useUserStore();
-                this.username = userStore.user_email // di ko pa nairergister ung usernames eto muna for now
+                this.username = userStore.username
                 this.user_id = userStore.user_id
+                this.display_name = userStore.displayName
                 
                 //to generate randomized unique image id 
                 let currentDate = new Date().toJSON().slice(0, 10);
@@ -199,7 +207,8 @@ export default{
                 fireset(firebase_ref(db,"posts/" + postID),{
                     'post_content': this.post,
                     'user_id': this.user_id,
-                    'user': this.username,
+                    'username': this.username,
+                    'display_name': this.display_name,
                     'date': currentDate,
                     'time': currentTime,
                     'url': url,
@@ -215,14 +224,16 @@ export default{
                 })
                 // for newly posted content, the post details is pushed to posts container objects to instantly show on feed
                 this.posts_container[postID] = {
-                    'comments': { user: 'null' },
-                    'date': currentDate,
-                    'likes': { user: 'null'},
                     'post_content': this.post,
-                    'post_status': this.anonymous,
+                    // 'user_id': this.user_id,
+                    'username': this.username,
+                    'display_name': this.display_name,
+                    'date': currentDate,
                     'time': currentTime,
                     'url': url,
-                    'user': this.username
+                    'likes': { user: 'null' },
+                    'comments': { user: 'null' },
+                    'post_status': this.anonymous
                 }
                 // initialize as empty likes
                 this.likeCount[postID] = 0
@@ -238,7 +249,7 @@ export default{
         },
         handleItemLike(index){
             const userStore = useUserStore();
-            this.username = userStore.user_email // di ko pa nairergister ung usernames eto muna for now
+            this.username = userStore.username // di ko pa nairergister ung usernames eto muna for now
             this.user_id = userStore.user_id
 
             let user_match
@@ -324,14 +335,6 @@ export default{
         toggle_comment(index){
             this.showComments = this.showComments === index ? null : index;
         },
-        formatDate(rawDate){
-            const formattedDate = new Date(rawDate).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-            return formattedDate;
-        }
     },
     mounted(){
         // so fetching the user details is repeated both mount hook and submit post

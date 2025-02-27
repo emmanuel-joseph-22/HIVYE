@@ -43,7 +43,7 @@ const messages = ref([]);
 
 const userStore = useUserStore();
 // const sender = userStore.username;
-const sender = ref('si_boy_muna');
+const sender = userStore.username;
 const sender_id = userStore.user_id;
 
 onMounted(() => {
@@ -124,7 +124,7 @@ const sendMsg = () => {
 
     set(firebase_ref(db, "messages/" + timestamp), {
         msg: msg,
-        sender: sender.value
+        sender: sender
     }).then(() => {
         // record groupchat interaction
         set(firebase_ref(db, "users/"+sender_id.value+"/interactions/messages/"+ timestamp), {

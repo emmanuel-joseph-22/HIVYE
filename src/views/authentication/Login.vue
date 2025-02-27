@@ -89,6 +89,8 @@
 <script setup>
 import { ref } from 'vue';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { get, ref as firebase_ref } from 'firebase/database';
+import { HIVYE_database } from '@/main';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/user';
 
@@ -118,15 +120,16 @@ const login = async () => {
     const auth = getAuth();
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
+        
+        
         console.log("Successfully logged in!");
         const user = userCredential.user; // Retrieve the user object
-        const userId = user.uid; // Retrieve the user ID (UID)
-        const user_email = user.email;
-        const displayName = user.displayName;
-        const username = user.username;
-        // state management here
-        userStore.setUserCred(userId, user_email, displayName, username);
-
+        
+        const [name, u_name, bday] = await fetchUserData(user.uid)
+        // if user cred is not in state
+        userStore.eraseUserState()
+        userStore.setUserCred(user.uid, user.email, name, u_name, bday, true);
+      
         router.push('/forum');
         
     } catch (error) {
