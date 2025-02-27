@@ -12,8 +12,8 @@
       </div>
       <!-- Message Prompt -->
       <div id="message-prompt" class="absolute bottom-1 left-0 right-0 flex flex-row justify-center items-center px-4 py-2 border-t border-1 border-gray-700 bg-darkBlue">
-        <textarea v-model="newMessage" class="w-10/12 rounded-lg p-2 max-h-10 bg-transparent border-none overflow-y-auto focus:border-none focus:outline-none" placeholder="Type your message..."></textarea>
-        <button @click="sendMessage" class="w-2/12 ml-4 bg-matcha text-white rounded-lg p-2 hover:bg-gray-600">Send</button>
+        <textarea v-model="newMessage" class="resize-none w-10/12 rounded-lg p-2 max-h-10 bg-transparent border-none overflow-y-auto focus:border-none focus:outline-none" placeholder="Type your message..."></textarea>
+        <button @click="sendMessage" :disabled="!newMessage" :class="['w-2/12 ml-4  text-white rounded-lg p-2 hover:bg-gray-600', newMessage ? 'bg-matcha': 'bg-gray-600']">Send</button>
       </div>
     </div>
   </template>

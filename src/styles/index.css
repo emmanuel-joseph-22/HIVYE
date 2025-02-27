@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* index.css or global.css */
+:root {
+    --color-matcha: #f18771; /* Light mode main accent */
+    --color-accentRed: #F64D54;
+    --color-darkBlue: #090517;
+    /* text */
+    --color-white: #ffffff;
+  }
+  
+  .light {
+    --color-matcha: #e87c6a;
+    --color-accentRed: #E63A42;
+    --color-darkBlue: #E5E5E5;
+    --color-white: #090517;
+  }
+  

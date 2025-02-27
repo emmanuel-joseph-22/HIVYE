@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-row">
-        <section class="profile_section mb-[50px]">
+        <section class="profile_section mb-[50px] select-none">
             <section class="flex flex-col justify-center text-white p-8 border-b border-1 border-gray-500">
                 <div class="flex gap-8">
                     <div class="profile_pic w-[60px] bg-matcha h-[60px] rounded-full"></div>

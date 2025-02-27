@@ -7,7 +7,7 @@
             </div>
             <div class="flex flex-col w-full py-4">
                 <div v-for="notif in fetched_data"
-                    class="flex flex-col mx-auto px-4 py-2 my-2 w-10/12 text-white border border-1 border-gray-700 rounded-lg hover:bg-gray-900 transition duration-200 cursor-pointer">
+                    class="flex flex-col mx-auto px-4 py-2 my-2 w-10/12 text-white border border-1 border-gray-700 rounded-lg hover:bg-gray-900 hover:border-matcha transition duration-500 cursor-pointer">
                     <div>{{ notif.user }} recently shared a post.</div>
                     <div>{{ notif.date }}</div>
                 </div>

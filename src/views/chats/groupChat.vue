@@ -22,8 +22,8 @@
     </div>
     <!-- Message Prompt -->
     <div id="message-prompt" class="absolute sm:bottom-1 bottom-0 left-0 right-0 flex flex-row justify-center items-center px-4 py-2 border-t border-1 border-gray-700 bg-darkBlue">
-      <textarea id="msgTxt" class="w-10/12 rounded-lg p-2 max-h-10 bg-transparent border-none overflow-y-auto focus:border-none focus:outline-none" placeholder="Type your message..."></textarea>
-      <button @click="sendMsg" class="w-2/12 ml-4 bg-matcha text-white rounded-lg p-2 hover:bg-gray-600">Send</button>
+      <textarea id="msgTxt" v-model="chat_msg" class="resize-none w-10/12 rounded-lg p-2 max-h-10 bg-transparent border-none overflow-y-auto focus:border-none focus:outline-none" placeholder="Type your message..."></textarea>
+      <button @click="sendMsg" :disabled="!chat_msg" :class="['w-2/12 ml-4  text-white rounded-lg p-2 hover:bg-gray-600', chat_msg ? 'bg-matcha': 'bg-gray-600']">Send</button>
     </div>
   </div>
 </template>
@@ -40,6 +40,7 @@ import { data } from 'autoprefixer';
 
 //GROUPCHAT
 const messages = ref([]);
+const chat_msg = ref(null);
 
 const userStore = useUserStore();
 // const sender = userStore.username;
@@ -133,6 +134,7 @@ const sendMsg = () => {
     })
 
     msgTxt.value = "";
+    chat_msg.value = null;
 };
 </script>
 
