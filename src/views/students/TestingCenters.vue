@@ -1,6 +1,6 @@
 <template>
     <div v-for="center in testingCenters" >
-        <div class="flex flex-row border border-1 w-11/12 mx-auto my-4 border-gray-700 shadow-lg rounded-xl text-white py-4 px-4 gap-4 hover:bg-gray-900 hover:cursor-pointer"
+        <div class="select-none flex flex-row border border-1 w-11/12 mx-auto my-4 border-gray-700 shadow-lg rounded-xl text-white py-4 px-4 gap-4 hover:bg-gray-900 hover:cursor-pointer hover:border-matcha transition duration-500"
             @click="center.action">
             <div class="w-2/12 flex items-center justify-center">
                 <img :src="center.logo" alt="logo" />

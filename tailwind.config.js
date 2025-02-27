@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  lightMode: "class", // Enables dark mode using a class
   content: [
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
@@ -11,11 +12,10 @@ export default {
         'roboto-condensed': ['"Roboto Condensed"', 'sans-serif'],
       },
       colors: {
-        matcha: '#f18771', //eto main accent
-        accentRed: '#F64D54',
-        darkBlue: '#090517',
-        contrastBlue: '',
-        white: '#ffffff'
+        matcha: 'var(--color-matcha)', //eto main accent
+        accentRed: 'var(--color-accentRed)',
+        darkBlue: 'var(--color-darkBlue)',
+        white: 'var(--color-white)'
       }
     },
   },

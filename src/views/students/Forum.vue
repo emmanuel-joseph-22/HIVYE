@@ -1,8 +1,9 @@
 <template>
     <div class="flex flex-row">
         <section class="forum_section mb-[50px]">
-            <div class="text-white w-full py-2 px-4 text-lg text-center border-b border-gray-700 border-1">
-                For You
+            <div class="select-none text-white w-full py-2 px-4 text-lg text-center border-b border-gray-700 border-1">
+                <span class="hidden sm:block">For You</span>
+                <span class="sm:hidden block font-bold">HIVYE</span>
             </div>
             <!-- forum space -->
             <div id="flex flex-col h-auto" v-if="dataLoaded">
@@ -41,14 +42,14 @@
                 <div 
                     v-for="post in Object.keys(posts_container).reverse()" 
                     :key="post" 
-                    class="flex flex-col border-y border-1 w-full border-gray-700 text-white hover:bg-gray-950"
+                    class="select-none flex flex-col border-y border-1 w-full border-gray-700 text-white hover:bg-gray-950"
                     >
                     <router-link :to="`/post/${post}`"
                         class=" cursor-pointer">
                         <!-- header -->
                         <div class="flex flex-row w-full items-center px-4 pt-4">
                             <h1 class="font-bold text">{{ posts_container[post].display_name }}</h1>
-                            <span class="ml-auto">Posted {{ timeAgo(posts_container[post]['time']) }}</span>
+                            <span class="ml-auto text-sm">Posted {{ timeAgo(posts_container[post]['time']) }}</span>
                         </div>
                         <!-- post content -->
                         <div class="flex w-full items-center text-left px-4 py-2 text-xl">

@@ -1,6 +1,6 @@
 <template>
   <!-- right sidebar for web -->
-  <nav class="fixed side_bar h-full border-r border-1 border-gray-700 flex flex-col justify-center gap-4 transition-linear duration-500">
+  <nav :class="{ light: isLightMode }" class="fixed select-none side_bar h-full border-r border-1 border-gray-700 flex flex-col justify-center gap-4 transition-linear duration-500">
     <div class="w-full mt-8 absolute top-0">
       <div class="flex text-white w-full mx-auto">
         <div class="mx-auto flex">
@@ -22,10 +22,10 @@
     <!-- dark mode -->
     <div class="absolute bottom-0 w-full">
       <div class="text-white flex flex-row mx-4 sm:mx-auto my-4 w-11/12 rounded-lg py-3 text-xl px-5 md:px-10 items-center gap-3 hover:bg-matcha transition duration-300 cursor-pointer"
-      @click="isDarkMode = !isDarkMode">
-        <light_mode v-if="!isDarkMode" />
-        <dark_mode v-if="isDarkMode" />
-        <span class="hidden sm:hidden md:block">Darkmode</span>
+      @click="toggleLightMode">
+        <light_mode v-if="isLightMode" />
+        <dark_mode v-if="!isLightMode" />
+        <span class="hidden sm:hidden md:block">Theme</span>
       </div>
     </div>
     
@@ -52,7 +52,6 @@
 </template>
 <script>
 import { useRoute } from "vue-router";
-
 import HomeIcon from '@/components/icons/home_icon.vue';
 import ChatIcon from '@/components/icons/chat_icon.vue';
 import AccountIcon from '@/components/icons/account_icon.vue';
@@ -116,7 +115,7 @@ export default{
           name: 'profile', route: '/profile', active: false, displayName: 'Profile', icon: AccountIcon, inactiveIcon: AccountOutline,
         },
       ],
-      isDarkMode: true,
+      isLightMode: false,
     }
   },
   methods: {
@@ -135,6 +134,11 @@ export default{
       this.mobile_nav_tabs.forEach((tab) => {
         tab.active = tab.route === currentRoute;
       });
+    },
+    toggleLightMode(){
+      this.isLightMode = !this.isLightMode;
+      document.documentElement.classList.toggle("light", this.isLightMode);
+      localStorage.setItem("theme", this.isLightMode ? "light" : "dark");
     }
   },
   watch: {
@@ -142,6 +146,8 @@ export default{
   },
   mounted() {
     this.syncActiveTab(); // Ensures correct active tab when the page loads
+    this.isLightMode = localStorage.getItem("theme") === "light";
+    document.documentElement.classList.toggle("light", this.isLightMode);
   }
 }
 </script>

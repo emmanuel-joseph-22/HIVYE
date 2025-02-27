@@ -1,6 +1,6 @@
 <template>
     <div class="w-full text-white">
-        <div class="text-white w-full py-4 text-lg flex flex-row items-center">
+        <div class="select-none text-white w-full py-4 text-lg flex flex-row items-center">
             <div class="w-1/2 text-center cursor-pointer"
                 :class="{ 'sideHeadBorder' : helplineActive }"
                 @click="openHelpineCenter">Helplines</div>

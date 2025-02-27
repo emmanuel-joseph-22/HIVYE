@@ -1,5 +1,5 @@
 <template>
-    <div class="flex w-full h-screen flex flex-col">
+    <div class="select-none flex w-full h-screen flex flex-col">
         <div class="msg_bar bg-darkBlue border border-1 border-gray-800 px-4 py-3 text-white font-bold text-xl">Messages</div>
         <div class="w-full flex flex-col sm:flex-row sm:flex-grow flex">
             <div class="chat_nav fixed top-0 right-7 sm:right-0 sm:top-0 sm:relative w-1/12 sm:w-4/12 h-1/12 scale-115 sm:scale-100 sm:h-full flex border-1 sm:flex-col py-2 sm:py-4 gap-2 text-white border-0 sm:border-x border-1 border-gray-800 mx-16 sm:mx-0">
