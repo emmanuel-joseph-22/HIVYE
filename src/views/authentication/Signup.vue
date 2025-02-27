@@ -162,14 +162,13 @@ const signup = async () => {
             'status': "active"
             })
             .then(() => {
-                userStore.setUserCred(user.uid, email.value, display_name.value, username.value);
+                userStore.setUserCred(user.uid, email.value, display_name.value, username.value, birthday.value, true);
             }).catch(error => console.error("Error in firebase/state:", error));
         })
         .then(() => {
             console.log("Successfully registered and data saved in Firestore!");
             router.push("/forum");
-        })  
-        .catch(error => console.error("Error somewhere:", error));
+        })
   } catch (error) {
       console.error("Error during signup:", error.code, error.message);
   }

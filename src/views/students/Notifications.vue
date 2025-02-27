@@ -3,7 +3,7 @@
     <div class="flex flex-row">
         <section class="notif_section flex flex-col">
             <div class="text-white w-full py-3 px-4 text-lg font-bold">
-                Notifications
+                Notification (currently in development)
             </div>
             <div class="flex flex-col w-full py-4">
                 <div v-for="notif in fetched_data"
@@ -55,7 +55,6 @@ export default{
 <style scoped>
 .notif_section{
     width: calc(100% - 402px);
-    z-index: 1;
 }
 .side_content{
     width: 400px;

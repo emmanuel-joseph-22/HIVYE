@@ -25,7 +25,7 @@
         newMessage: '',
         fetched_chats: [
           // Example messages
-          { id: 1, user: 'health admin', chat: 'hey bitch', date: '2024-07-25' },
+          { id: 1, user: 'health admin', chat: 'di pa nakakabit backend', date: '2024-07-25' },
         ],
       };
     },

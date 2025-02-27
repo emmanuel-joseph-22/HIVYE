@@ -9,16 +9,26 @@
         </div>
       </div>
     </div>
+    <!-- eto tlga ung side bar -->
     <div v-for="(tab, index) in side_bar_tabs" :key="index" class="">
-      <div class="w-11/12 mx-auto rounded-lg text-xl hover:bg-gray-700 text-white transition duration-300 cursor-pointer"
-        @click="toggleTab(index)"
-        :class="{ 'text-darkBlue bg-matcha': tab.active }">
+      <div class="w-11/12 mx-auto rounded-lg text-xl hover:bg-matcha text-white transition duration-300 cursor-pointer"
+        @click="toggleTab(index)">
         <router-link :to="tab.route" class="flex flex-row py-3 w-full px-5 md:px-10 items-center gap-3">
-          <component :is="tab.icon" />
-          <div class="hidden sm:hidden md:block">{{ tab.displayName }}</div>    
+          <component :is="tab.active ? tab.icon : tab.inactiveIcon" />
+          <div class="hidden sm:hidden md:block" :class="{'font-bold': active}" >{{ tab.displayName }}</div>    
         </router-link>
       </div>
     </div>
+    <!-- dark mode -->
+    <div class="absolute bottom-0 w-full">
+      <div class="text-white flex flex-row mx-4 sm:mx-auto my-4 w-11/12 rounded-lg py-3 text-xl px-5 md:px-10 items-center gap-3 hover:bg-matcha transition duration-300 cursor-pointer"
+      @click="isDarkMode = !isDarkMode">
+        <light_mode v-if="!isDarkMode" />
+        <dark_mode v-if="isDarkMode" />
+        <span class="hidden sm:hidden md:block">Darkmode</span>
+      </div>
+    </div>
+    
   </nav>
   <!-- nav bar for mobile-->
   <div class="mobile_nav_bar h-[50px] bg-darkBlue border-t border-1 border-gray-600 fixed z-10 flex justify-between items-center bottom-0 w-full p-1 transition-ease-in-out duration-300">
@@ -53,13 +63,18 @@ import ChatOutline from '@/components/icons/chat_icon_un.vue';
 import AccountOutline from '@/components/icons/account_icon_un.vue';
 import NotifOutline from '@/components/icons/notif_icon_un.vue';
 import HelplineOutline from '@/components/icons/helpline_icon_un.vue';
+import light_mode from "@/components/icons/light_mode.vue";
+import dark_mode from "@/components/icons/dark_mode.vue";
+
 export default{
   components: {
     HomeIcon,
     Helpline_icon,
     NotifIcon,
     ChatIcon,
-    AccountIcon
+    AccountIcon,
+    light_mode,
+    dark_mode
   },
   data(){
     return {
@@ -68,39 +83,40 @@ export default{
       // nav bar
       side_bar_tabs: [
         {
-          name: 'home', active: false, route: '/forum', displayName: 'Home', active: true, icon: HomeIcon,
+          name: 'home',  route: '/forum', active: true, displayName: 'Home', icon: HomeIcon, inactiveIcon: HomeOutline,
+        },
+        {
+          name: 'chats', route: '/chats', active: false, displayName: 'Chats', icon: ChatIcon, inactiveIcon: ChatOutline,
         },
         // {
-        //   name: 'helplines', active: false, route: '/helpines', displayName: 'Helplines', active: false, icon: 
+        //   name: 'helplines', route: '/helplines',  active: false, displayName: 'Helplines', icon: Helpline_icon, inactiveIcon: HelplineOutline,
         // },
         {
-          name: 'chats', active: false, route: '/chats', displayName: 'Chats', active: false, icon: ChatIcon
+          name: 'notifications', route: '/notifications', active: false, displayName: 'Notifications', icon: NotifIcon, inactiveIcon: NotifOutline,
         },
         {
-          name: 'notifications', active: false, route: '/notifications', displayName: 'Notifications', active: false, icon: NotifIcon
-        },
-        {
-          name: 'profile', active: false, route: '/profile', displayName: 'Profile', active: false, icon: AccountIcon
+          name: 'profile', route: '/profile', active: false, displayName: 'Profile', icon: AccountIcon, inactiveIcon: AccountOutline,
         },
       ],
       // mobile nav
       mobile_nav_tabs: [
         {
-          name: 'home',  route: '/forum', active: true, icon: HomeIcon, inactiveIcon: HomeOutline,
+          name: 'home',  route: '/forum', active: true, displayName: 'Home', icon: HomeIcon, inactiveIcon: HomeOutline,
         },
         {
-          name: 'chats', route: '/chats', active: false, icon: ChatIcon, inactiveIcon: ChatOutline,
+          name: 'chats', route: '/chats', active: false, displayName: 'Chats', icon: ChatIcon, inactiveIcon: ChatOutline,
         },
         {
-          name: 'helplines', route: '/helplines',  active: false, icon: Helpline_icon, inactiveIcon: HelplineOutline,
+          name: 'helplines', route: '/helplines',  active: false, displayName: 'Helplines', icon: Helpline_icon, inactiveIcon: HelplineOutline,
         },
         {
-          name: 'notifications', route: '/notifications', active: false, icon: NotifIcon, inactiveIcon: NotifOutline,
+          name: 'notifications', route: '/notifications', active: false, displayName: 'Notifications', icon: NotifIcon, inactiveIcon: NotifOutline,
         },
         {
-          name: 'profile', route: '/profile', active: false, icon: AccountIcon, inactiveIcon: AccountOutline,
+          name: 'profile', route: '/profile', active: false, displayName: 'Profile', icon: AccountIcon, inactiveIcon: AccountOutline,
         },
-      ]
+      ],
+      isDarkMode: true,
     }
   },
   methods: {

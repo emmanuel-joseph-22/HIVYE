@@ -128,7 +128,7 @@
                 <!-- submit data -->
                 <div class="text-center p-4 flex flex-col">
                     <hr>
-                    <p class="my-4">
+                    <p class="my-4 text-xs mx-2 sm:mx-24">
                         May we have your consent to record your HIV risk assessment 
                         for analytical purposes? This data aids us in refining support 
                         strategies for all users.

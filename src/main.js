@@ -5,13 +5,14 @@ import '@mdi/font/css/materialdesignicons.min.css'; // Import MDI
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import { getDatabase, ref, get, onValue } from "firebase/database";
 import { getStorage } from "firebase/storage";
 import { onAuthStateChanged, getAuth } from 'firebase/auth';
 
 import App from './App.vue';
 import router from './router';
 import { useUserStore } from './stores/user';
+import { fetchUserData } from './scripts/user';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDbSK9-Q9Q3v23r1Go3vDoM9bVvODcEpx4",
@@ -40,13 +41,12 @@ const userStore = useUserStore();
 onAuthStateChanged(auth, async user => {
   if (user) {
     try {
+      const [name, u_name, bday] = await fetchUserData(user.uid)
       // if user cred is not in state
-      if(!userStore.user_id){
-        userStore.setUserCred(user.uid, user.email, user.displayName, user.username);
-      }
+      userStore.eraseUserState()
+      userStore.setUserCred(user.uid, user.email, name, u_name, bday, true);
       
-      console.log('welcome: ', userStore.user_id, userStore.user_email);
-      
+      console.log('welcome: ', userStore.user_id, userStore.user_email, name, u_name, bday);
       router.push('/'); 
     } catch (error) {
       console.error('error authenticating current user: ', error);
