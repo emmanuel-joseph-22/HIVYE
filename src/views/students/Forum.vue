@@ -6,7 +6,7 @@
                 <span class="sm:hidden block font-bold">HIVYE</span>
             </div>
             <!-- forum space -->
-            <div id="flex flex-col h-auto" v-if="dataLoaded">
+            <div id="flex flex-col h-auto" >
                 <!-- post prompt -->
                 <div class="flex flex-col h-auto w-11/12 my-8 mx-auto"> 
                     <textarea class="min-h-[20px] resize-none overflow-y-hidden py-2 px-4 my-2 text-white bg-transparent text-left border-none text-xl focus:border-none focus:outline-none" ref="post_textarea" rows="1" placeholder="Start a discussion here..." v-model="post" @input="adjustTextarea"></textarea>
@@ -64,9 +64,9 @@
                     <!-- interactions and metrics -->
                     <div class="flex flex-row w-full gap-3 px-4 items-center mt-2 mb-4">
                         <!-- for like button kaso di ko pa naayos -->
-                        <div class="flex items-center cursor-pointer gap-1 hover:text-matcha" id="likeBtn" @click="handleItemLike(post)">
-                            <unlikedButton v-show="!user_liked[post]" />
-                            <likedButton v-show="user_liked[post]"/>
+                        <div v-if="!dataLoaded" class="flex items-center cursor-pointer gap-1 hover:text-matcha" id="likeBtn" @click="handleItemLike(post)">
+                            <unlikedButton v-if="!user_liked[post]" />
+                            <likedButton v-if="user_liked[post]"/>
                             <!-- calculate the length of likes obj -->
                             <span>{{likeCount[post]}} likes</span>
                         </div>
@@ -160,7 +160,6 @@ export default{
 
             characterLimit: 50, //for text truncation..di nagawa
             user_liked: {},
-            
         }
     },
     methods: {
@@ -376,7 +375,9 @@ export default{
                 console.log("Error loading liked posts ", error )
             })
         })
-        .catch((error) => {
+        .finally(() => {
+                this.dataLoaded = false
+            }).catch((error) => {
             console.error("Error fetching posts:", error);
         });
         // simulate a delay to not lose fetched data when rendered

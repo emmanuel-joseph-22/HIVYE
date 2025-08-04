@@ -139,36 +139,6 @@ const sendMsg = () => {
 </script>
 
 <style>
-.outer {
-  width: 100%;
-  margin-top: 10px;
-  display: flex;
-}
-#inner {
-  padding: 10px;
-  box-sizing: border-box;
-  border-radius: 10px;
-}
-
-.me {
-  background: #d3d2d2;
-  color: #000;
-  border-radius: 10px;
-  text-align: left;
-  margin-left: 15%;
-  max-width: auto;
-}
-.notMe {
-  background: #fff;
-  color: #000;
-  width: auto;
-  border-radius: 10px;
-  margin-bottom: 13%;
-  justify-content: left;
-  min-width: 20%;
-  max-width: 80%;
-}
-
 /* Custom CSS for upward expansion */
 #chat-container.expand-upward #chatbox {
   bottom: 0;
