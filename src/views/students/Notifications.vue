@@ -3,13 +3,13 @@
     <div class="flex flex-row">
         <section class="notif_section flex flex-col">
             <div class="text-white w-full py-3 px-4 text-lg font-bold">
-                Notification (currently in development)
+                Notifications
             </div>
+
             <div class="flex flex-col w-full py-4">
-                <div v-for="notif in fetched_data"
+                <div v-for="notification in sortedNotifications" :key="notification.timestamp"
                     class="flex flex-col mx-auto px-4 py-2 my-2 w-10/12 text-white border border-1 border-gray-700 rounded-lg hover:bg-gray-900 hover:border-matcha transition duration-500 cursor-pointer">
-                    <div>{{ notif.user }} recently shared a post.</div>
-                    <div>{{ notif.date }}</div>
+                    <p v-html="formattedNotification(notification)"></p>
                 </div>
             </div>
         </section>
@@ -19,38 +19,95 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import QuizButton from '@/components/buttons/QuizButton.vue';
 import Helpline_mobile from './Helpline_mobile.vue';
-export default{
-    components: {
-        QuizButton,
-        Helpline_mobile
-    },
-    data(){
-        return{
-            fetched_data: [
-                {
-                    user: 'sushi',
-                    date: '06-30-24'
-                },
-                {
-                    user: 'hito',
-                    date: '06-30-24'
-                },
-                {
-                    user: 'si_ano',
-                    date: '06-30-24'
-                }
-            ],
-            helplineActive: true,
-            testingActive: false,
-        }
-    },
-    methods: {
-       
+
+
+import { onMounted, ref } from 'vue';
+import { HIVYE_database as db } from "@/main";
+import { onChildAdded, ref as db_ref } from 'firebase/database';
+import { useUserStore } from '@/stores/user';
+import { timeAgo } from '@/scripts/dateAndTime';
+
+const notifications = ref([]);
+const sortedNotifications = ref([]);
+
+const userStore = useUserStore();
+// const sender = userStore.username;
+const userID = userStore.user_id;
+
+onChildAdded(db_ref(db, "posts/"), (data) => {
+    const postTimestamp = data.key;
+    const postData = data.val();
+    const postdate = postData.date;
+    const posttime = timeAgo(postData.time);
+    let post_name = postData.display_name;
+
+    // if (postData.post_status == true) {
+    //     post_name = "someone";
+    // }
+    const postNotification = {
+        timestamp: postTimestamp,
+        text: `${post_name} shared a post: <i><b>${postData.post_content}</b></i>. ${posttime}`,
+        date: postdate,
+        time: posttime
+    };
+    if (postData.user_id != userID) {
+        notifications.value.push(postNotification);
     }
-}
+
+    // onChildAdded(db_ref(db, `posts/${postTimestamp}/comments/`), (commentData) => {
+    //     const commentTimestamp = commentData.key;
+    //     const comment = commentData.val();
+    //     const commentdate = comment.date;
+    //     const commenttime = timeAgo(comment.time);
+    //     let comment_name = comment.display_name;
+    //     // if (comment.post_status == true) {
+    //     // comment_name = "someone";
+    //     // }
+
+    //     const commentNotification = {
+    //     timestamp: commentTimestamp,
+    //     text: `<b>${comment_name}</b> commented on your post: ${comment.comment}. ${commenttime}`,
+    //     date: commentdate,
+    //     time: commenttime
+    // };
+    //     if (postData.user_id == userID && comment.user_id != userID) {
+    //     notifications.value.push(commentNotification);
+    //     }
+    // });
+
+    // onChildAdded(db_ref(db, `posts/${postTimestamp}/likes/`), (likedData) => {
+    //     const likeTimestamp = likedData.key;
+    //     const like = likedData.val();
+    //     const likeNotification = {
+    //     timestamp: likeTimestamp,
+    //     text: `<b>${like.display_name}</b> liked your post.`,
+    //     };
+    //     if (postData.user_id == userID && like.user_id != userID) {
+    //     notifications.value.push(likeNotification);
+    //     }
+    // });
+});
+
+  
+onMounted(() => {
+    setTimeout(() =>{
+        const sortNotifications = () => {
+            sortedNotifications.value = [...notifications.value].sort((a, b) => b.timestamp - a.timestamp);
+        };
+        sortNotifications();
+    }, 500)
+})
+  
+const formattedNotification = (notification) => {
+  let formattedText = notification.text.replace(
+    notification.post_name,
+    `<b>${notification.post_name}</b>`
+  );
+  return formattedText;
+};
 </script>
 <style scoped>
 .notif_section{
