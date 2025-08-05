@@ -5,10 +5,10 @@ This project is based on [HIVYE](https://github.com/AaronVillano/Mobile_Applicat
 I kept firebase for database and cloud service. I migrated with Vite from vue-cli and added state management using Pinia. When it comes to code styles, the project uses a mix of options API and composition API which wasn't initially intended. I am still trying to get used to the newer style which I really don't like.
 
 ## Known bugs and ongoing development
-- likes and comment section under forum 
+- like button under posts
 - light mode
 - selection of input in risk estimator quiz
-- still no admin
+- admin
 
 ## Project Setup
 ```
