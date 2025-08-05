@@ -1,6 +1,6 @@
 <template>
     <div v-if="post" class="text-white">
-        <router-link :to="{ name: 'forum' }" class="fixed rounded-full p-2 m-3 hover:bg-gray-700 text-white z-10">
+        <router-link :to="{ name: 'forum' }" class="fixed rounded-full p-2 m-3 hover:bg-hover text-white z-10">
             <BackButton />
         </router-link>
         <div class="flex flex-row">
@@ -73,18 +73,9 @@
                     </div>
                 </div>
             </section>
-            
-            <section class="side_content fixed border-l border-1 border-gray-700  right-0 h-screen text-white transition-linear duration-1000">
-                <div class="text-white w-full py-4 text-lg flex flex-row items-center">
-                    <div class="w-1/2 text-center cursor-pointer"
-                        :class="{ 'sideHeadBorder' : helplineActive }"
-                        @click="openHelpineCenter">Helplines</div>
-                    <div class="w-1/2 text-center cursor-pointer"
-                        :class="{ 'sideHeadBorder' : testingActive }"
-                        @click="openTestingCenter">Testing Centers</div>
-                </div>
-                <Helplines v-if="helplineActive"/>
-                <TestingCenters v-if="testingActive"/>
+
+            <section class="side_content border-l border-1 border-gray-700 fixed right-0 h-screen text-white transition-linear duration-1000">
+                <Helpline_mobile />
             </section>
         </div>
     </div>
@@ -96,8 +87,7 @@ import likedButton from '@/components/icons/like.vue';
 import unlikedButton from '@/components/icons/unlike.vue';
 import CommentButton from '@/components/buttons/commentButton.vue';
 import BackButton from '@/components/buttons/backButton.vue';
-import Helplines from './Helplines.vue';
-import TestingCenters from './TestingCenters.vue';
+import Helpline_mobile from './Helpline_mobile.vue';
 import QuizButton from '@/components/buttons/QuizButton.vue';
 import { onMounted, onUnmounted, ref as vue_ref } from 'vue';
 import { HIVYE_database } from '@/main';
@@ -106,24 +96,9 @@ import { useRoute } from 'vue-router';
 import { formatDate, formatTimestamp } from '@/scripts/dateAndTime';
 import { useUserStore } from '@/stores/user';
 
-const helplineActive = vue_ref(true);
-const testingActive = vue_ref(false);
 const comment_prompt_is_visible = vue_ref(false);
 const comment_content = vue_ref("");
 const commentHasValue = vue_ref(false);
-
-const openHelpineCenter = () => {
-    if(helplineActive.value == false){
-        helplineActive.value = true;
-        testingActive.value = false;
-    }
-};
-const openTestingCenter = () => {
-    if(testingActive.value == false){
-        helplineActive.value = false;
-        testingActive.value = true;
-    }
-};
 
 const route = useRoute();
 const post_id = route.params.id;

@@ -15,7 +15,8 @@ export default {
         matcha: 'var(--color-matcha)', //eto main accent
         accentRed: 'var(--color-accentRed)',
         darkBlue: 'var(--color-darkBlue)',
-        white: 'var(--color-white)'
+        white: 'var(--color-white)',
+        hover: 'var(--color-hover)',
       }
     },
   },
