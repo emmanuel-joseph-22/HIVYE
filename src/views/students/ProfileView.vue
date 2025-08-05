@@ -133,7 +133,7 @@
         <span class="p-6 text-lg">Log out ka na?</span>
         <img src="\logo\exit.jpg" class="mx-9"/>
         <button class="mt-auto text-red-400 font-bold p-3 hover:bg-gray-900 rounded-b-lg"
-            @click="logout">bye bitch
+            @click="logout">bye
         </button>
     </modal>
 </template>
