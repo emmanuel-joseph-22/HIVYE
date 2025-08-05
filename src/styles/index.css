@@ -7,7 +7,7 @@
     --color-matcha: #f18771; /* Light mode main accent */
     --color-accentRed: #F64D54;
     --color-darkBlue: #090517;
-    --color-hover: rgb(15, 15, 15);
+    --color-hover: rgba(23, 23, 23, 0.445);
     /* text */
     --color-white: #ffffff;
   }
@@ -17,6 +17,6 @@
     --color-accentRed: #E63A42;
     --color-darkBlue: #E5E5E5;
     --color-white: #090517;
-    --color-hover: rgb(214, 214, 214);
+    --color-hover: rgba(214, 214, 214, 0.442);
   }
   
