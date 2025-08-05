@@ -312,7 +312,7 @@ export default{
                 .then((snapshot) => {
                     if (snapshot.exists()) {
                         this.comments_container = snapshot.val();
-                        console.log(this.comments_container)
+                        // console.lag(this.comments_container)
                     } else {
                     console.log("No data available");
                     }
@@ -366,7 +366,7 @@ export default{
                     })
                     this.resetData()
                 } else {
-                    console.log("user id: ", this.user_id)
+                    // console.lag("user id: ", this.user_id)
                 }
                 
             }

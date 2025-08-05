@@ -26,8 +26,8 @@ const fetchUserPostsId = (uid) => {
       onValue(user_ref, (snapshot) => {
         if (snapshot.exists()) {
           const data = Object.keys(snapshot.val().interactions.user_posts);
-          console.log('post ids ni user: ', data)
-          resolve(data); // ✅ Resolve with data
+          // console.lag('post ids ni user: ', data)
+          resolve(data); // Resolve with data
         } else {
           reject("User data not found");
         }

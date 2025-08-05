@@ -137,7 +137,7 @@ const fetchData = async () => {
 
     onValue(post_ref, (snapshot) => {
         post.value = snapshot.val();
-        console.log('content:', post.value)
+        // console.lag('content:', post.value)
     }, (error) => {
         console.error('Read failed:', error);
     });
@@ -167,10 +167,9 @@ const send_comment_button = () => {
 let post_reference
 
 onMounted(async () => {
-    console.log('id:', post_id)
+    // console.lag('id:', post_id)
     post_reference = await fetchData();
-    console.log('ref: ', post_reference)
-    // console.log('post: ', post.value)
+    // console.lag('ref: ', post_reference)
 });
 
 onUnmounted(() => {
