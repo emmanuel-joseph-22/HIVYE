@@ -26,42 +26,46 @@ const router = createRouter({
       path: '/home',
       name: 'home',
       component: HomeView, 
-    },
-    {
-      path: '/forum',
-      name: 'forum',
-      component: Forum
-    },
-    {
-      path: '/post/:id',
-      name: 'postView',
-      component: postView,
-      props: true
-    },
-    {
-      path: '/helplines',
-      name: 'helplines',
-      component: Helplines_mobile
-    },
-    {
-      path: '/chats',
-      name: 'chats',
-      component: ChatView
-    },
-    {
-      path: '/notifications',
-      name: 'notifications',
-      component: NotifView
-    },
-    {
-      path: '/risk-estimator',
-      name: 'riskEstimator',
-      component: RiskEstimator
-    },
-    {
-      path: '/profile',
-      name: 'profile',
-      component: ProfileView,
+      children: [
+          // users 
+          {
+            path: '/forum',
+            name: 'forum',
+            component: Forum
+          },
+          {
+            path: '/post/:id',
+            name: 'postView',
+            component: postView,
+            props: true
+          },
+          {
+            path: '/helplines',
+            name: 'helplines',
+            component: Helplines_mobile
+          },
+          {
+            path: '/chats',
+            name: 'chats',
+            component: ChatView
+          },
+          {
+            path: '/notifications',
+            name: 'notifications',
+            component: NotifView
+          },
+          {
+            path: '/risk-estimator',
+            name: 'riskEstimator',
+            component: RiskEstimator
+          },
+          {
+            path: '/profile',
+            name: 'profile',
+            component: ProfileView,
+          }
+
+      ]
     },
     // auth
     {
