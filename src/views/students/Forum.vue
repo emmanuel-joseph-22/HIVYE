@@ -79,8 +79,8 @@
                     </div>
                     <!-- comment section -->
                     <div v-if="showComments === post" class="w-11/12 mx-auto mt-1 mb-4 flex flex-row gap-2">
-                        <input type="textarea" class="w-full rounded-lg py-1 px-2 bg-darkBlue" placeholder="Enter comment...">
-                        <button class="px-2 ml-1 rounded-lg bg-matcha">Send</button>
+                        <input type="textarea" class="w-full rounded-lg py-1 px-2 bg-darkBlue" placeholder="Enter comment..." v-model="comment_content" @input="send_comment_button">
+                        <button @click="post_comment(post)" v-if="commentHasValue" class="px-2 ml-1 rounded-lg bg-matcha">Send</button>
                     </div>
                 </div>
             </div>
@@ -330,10 +330,57 @@ export default{
             this.time = '',
             this.like = '',
             this.comment_content = '',
-            this.anonymous = { newpost: true }
+            this.anonymous = { newpost: true },
+            this.commentHasValue = false
         },
         toggle_comment(index){
             this.showComments = this.showComments === index ? null : index;
+        },
+        post_comment(data){
+            try{
+                const userStore = useUserStore();
+                this.user_id = userStore.user_id;
+                this.username = userStore.username;
+                let display_name = userStore.displayName;
+                let currentDate = new Date().toJSON().slice(0, 10);
+                let currentTime = getCurrentTime()
+                const timestamp = new Date().getTime()
+
+                const comment_id = timestamp
+                const valueRef = firebase_ref(db, "posts/" + data + "/comments/" + comment_id)
+                
+                if(this.user_id){
+                    fireset(valueRef, {
+                        'comment': this.comment_content,
+                        'userID': this.user_id,
+                        'username': this.username,
+                        'name': display_name,
+                        'date': currentDate,
+                        'post_status': this.anonymous,
+                        'time': currentTime,
+                    }).then(() => {
+                        // record interaction 
+                        fireset(firebase_ref(db, "users/"+ this.user_id +"/interactions/comments/" + data + "/"+ comment_id), {
+                            id:"null",
+                        })
+                    })
+                    this.resetData()
+                } else {
+                    console.log("user id: ", this.user_id)
+                }
+                
+            }
+            catch(error) {
+                console.error('comment failed:', error);
+            }
+        },
+        send_comment_button(){
+            if(this.comment_content){
+                this.commentHasValue = true
+            }
+            if(this.comment_content === ''){
+                this.commentHasValue = false
+            }
         },
     },
     mounted(){
