@@ -2,10 +2,10 @@
     <div class="w-full text-white">
         <div class="select-none text-white w-full py-4 text-lg flex flex-row items-center">
             <div class="w-1/2 text-center cursor-pointer"
-                :class="{ 'sideHeadBorder' : helplineActive }"
+                :class="{ 'sideHeadBorder text-white' : helplineActive }"
                 @click="openHelpineCenter">Helplines</div>
             <div class="w-1/2 text-center cursor-pointer"
-                :class="{ 'sideHeadBorder' : testingActive }"
+                :class="{ 'sideHeadBorder text-white' : testingActive }"
                 @click="openTestingCenter">Testing Centers</div>
         </div>
         <Helplines v-if="helplineActive"/>
@@ -50,7 +50,7 @@ export default{
 
 <style scoped>
 .sideHeadBorder{
-    border-bottom: 3px solid white;
+    border-bottom: 3px solid;
     font-weight: bold;
     padding-bottom: 5px;
 }

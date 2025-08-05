@@ -42,7 +42,7 @@
                 <div 
                     v-for="post in Object.keys(posts_container).reverse()" 
                     :key="post" 
-                    class="select-none flex flex-col border-y border-1 w-full border-gray-700 text-white hover:bg-gray-950"
+                    class="select-none flex flex-col border-y border-1 w-full border-gray-700 text-white hover:bg-hover"
                     >
                     <router-link :to="`/post/${post}`"
                         class=" cursor-pointer">
