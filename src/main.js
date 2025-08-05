@@ -46,7 +46,7 @@ onAuthStateChanged(auth, async user => {
       userStore.eraseUserState()
       userStore.setUserCred(user.uid, user.email, name, u_name, bday, true);
       
-      console.log('welcome: ', userStore.user_id, userStore.user_email, name, u_name, bday);
+      // console.lag('welcome: ', userStore.user_id, userStore.user_email, name, u_name, bday);
       router.push('/'); 
     } catch (error) {
       console.error('error authenticating current user: ', error);

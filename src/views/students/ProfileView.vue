@@ -206,7 +206,7 @@ onMounted(async () => {
     for(const i of userpost.value){
         fetchData(i);
     }
-    console.log(useStore.user_email, useStore.username, useStore.displayName, useStore.birthday)
+    // console.lag(useStore.user_email, useStore.username, useStore.displayName, useStore.birthday)
 })
 
 const logout = async () => {

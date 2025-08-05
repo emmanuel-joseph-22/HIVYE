@@ -166,7 +166,7 @@ const signup = async () => {
             }).catch(error => console.error("Error in firebase/state:", error));
         })
         .then(() => {
-            console.log("Successfully registered and data saved in Firestore!");
+            console.log("Successfully registered and data saved in db!");
             router.push("/forum");
         })
   } catch (error) {
