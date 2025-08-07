@@ -7,7 +7,7 @@
                 <!-- <h1 class="my-12">Register</h1> -->
 
                 <Forms class=" w-full">
-                    <section v-if="next_page==false" class="flex flex-col px-6 my-8 w-full">
+                    <section v-if="next_page==false" class="flex flex-col px-6 w-full">
                         <label for="user_email" class="font-bold text-left">Email</label>
                         <input 
                             autofocus id="input_userid" 
@@ -17,7 +17,7 @@
                             :class="{ 'border-red-600 border-2': errorEmailMsg && !emailIsValid() }" 
                             class="px-4 py-2 my-1 border border-matcha rounded-lg focus:outline-none focus:ring-2 focus:ring-matcha w-full text-darkBlue" 
                             v-model="email"/>
-                        <span class="text-left text-red-400 text-sm mb-4">{{ errorEmailMsg }}</span>
+                        <span class="text-left text-red-400 text-sm mb-2">{{ errorEmailMsg }}</span>
                         
                         <label for="password" class="font-bold text-left">Password</label>
                         <input 
@@ -28,7 +28,7 @@
                             :class="{ 'border-red-600 border-2': errorPWMsg && !passwordIsValid() }" 
                             class="pl-4 pr-10 py-2 my-1 border border-matcha rounded-lg focus:outline-none focus:ring-2 focus:ring-matcha w-full text-darkBlue" 
                             v-model="password"/>
-                        <span class="text-left text-red-400 text-sm mb-4">{{ errorPWMsg }}</span>
+                        <span class="text-left text-red-400 text-sm mb-2">{{ errorPWMsg }}</span>
                         
                         
                         <label for="username" class="font-bold text-left">Username</label>
@@ -41,7 +41,7 @@
                             v-model="username"
                         />
                         <!-- <span class="text-left text-red-400 text-sm mb-4">{{ errorPWMsg }}</span> -->
-                        <label for="display_name" class="font-bold text-left">Display Name</label>
+                        <label for="display_name" class="font-bold text-left mt-2">Display Name</label>
                         <input 
                             type="text"
                             id="inpur_display_name" 
@@ -50,7 +50,7 @@
                             class="pl-4 pr-10 py-2 my-1 border border-matcha rounded-lg focus:outline-none focus:ring-2 focus:ring-matcha w-full text-darkBlue" 
                             v-model="display_name"
                         />
-                        <label for="birthday" class="font-bold text-left">Birthday</label>
+                        <label for="birthday" class="font-bold text-left mt-2">Birthday</label>
                         <input 
                             type="date"
                             id="inpur_birthday" 
@@ -60,7 +60,7 @@
                             v-model="birthday"
                         />
 
-                        <div @click="signup" class="auth_button flex justify-center items-center my-12">
+                        <div @click="signup" class="auth_button flex justify-center items-center my-8">
                             <a href="#" class="relative block bg-bsu-base border-2 border-solid border-matcha text-matcha hover:text-white bg-opacity-50 px-6 py-3 rounded-full overflow-hidden tracking-widest">
                                 <span class="relative transition duration-1000">SIGN UP</span>
                                 <div class="wave absolute left-0 w-full h-full bg-matcha transition duration-1000"></div>
