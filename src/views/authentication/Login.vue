@@ -1,9 +1,9 @@
 <template>
     <div class="flex flex-row w-full mx-auto text-white">
         <!-- login component -->
-        <div class="h-screen p-0 sm:p-12 w-full md:w-1/2 lg:w-1/3 xl:1/4  mx-auto">
+        <div class="h-screen p-0 sm:p-12 w-full md:w-1/2 lg:w-1/3 xl:1/4  mx-auto ">
             <div class="auth_card container h-full text-center flex flex-col items-center justify-center py-8 px-5 mx-auto shadow-none sm:shadow-lg ">
-                <img src="/logo/HIVYE_logo.png" class="w-1/3 mx-auto"/>
+                <img src="/logo/LOGO_HIVYE.png" class="w-1/5 mt-auto"/>
                 <!-- <h1 class="my-12">Login</h1> --> 
                 <div class=" flex flex-col px-6 my-8 w-full">
                     <label for="user_email" class="font-bold mb-2 text-left">Email</label>
