@@ -4,24 +4,24 @@
     <div class="w-full mt-8 absolute top-0">
       <div class="flex text-white w-full mx-auto">
         <div class="mx-auto flex">
-          <img src="\logo\HIVYE_logo.png" class="w-[60px]" />    
-          <span class="mt-5 mx-2 text-lg font-bold hidden sm:hidden md:block">HIVYE</span>
+          <img src="\logo\LOGO_HIVYE.png" class="w-[45px]" />    
+          <span class="mt-5 mx-2 text-lg font-bold hidden sm:hidden md:block">HIVYE </span>
         </div>
       </div>
     </div>
     <!-- eto tlga ung side bar -->
     <div v-for="(tab, index) in side_bar_tabs" :key="index" class="">
-      <div class="w-11/12 mx-auto rounded-lg text-xl hover:bg-matcha text-white transition duration-300 cursor-pointer"
+      <div class="w-11/12 mx-auto rounded-3xl text-xl text-white hover:bg-matcha hover:text-hoverText dark:hover:text-hoverText transition duration-300 cursor-pointer  "
         @click="toggleTab(index)">
         <router-link :to="tab.route" class="flex flex-row py-3 w-full px-5 md:px-10 items-center gap-3">
-          <component :is="tab.active ? tab.icon : tab.inactiveIcon" />
-          <div class="hidden sm:hidden md:block" :class="{'font-bold': active}" >{{ tab.displayName }}</div>    
+          <component :is="tab.active ? tab.icon : tab.inactiveIcon" class="w-6 h-6 shrink-0" />
+          <div class="hidden sm:hidden md:block" :class="{'font-bold': tab.active}" >{{ tab.displayName }}</div>    
         </router-link>
       </div>
     </div>
-    <!-- dark mode -->
+    <!-- dark mode (theme itself) -->
     <div class="absolute bottom-0 w-full">
-      <div class="text-white flex flex-row mx-4 sm:mx-auto my-4 w-11/12 rounded-lg py-3 text-xl px-5 md:px-10 items-center gap-3 hover:bg-matcha transition duration-300 cursor-pointer"
+      <div class="text-white hover:text-hoverText flex flex-row mx-4 sm:mx-auto my-4 w-11/12 rounded-lg py-3 text-xl px-5 md:px-10 items-center gap-3 hover:bg-matcha  transition duration-300 cursor-pointer"
       @click="toggleLightMode">
         <light_mode v-if="isLightMode" />
         <dark_mode v-if="!isLightMode" />

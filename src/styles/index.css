@@ -4,19 +4,21 @@
 
 /* index.css or global.css */
 :root {
-    --color-matcha: #f18771; /* Light mode main accent */
-    --color-accentRed: #F64D54;
-    --color-darkBlue: #090517;
-    --color-hover: rgba(23, 23, 23, 0.445);
-    /* text */
-    --color-white: #ffffff;
-  }
-  
-  .light {
-    --color-matcha: #e87c6a;
-    --color-accentRed: #E63A42;
-    --color-darkBlue: #E5E5E5;
-    --color-white: #090517;
-    --color-hover: rgba(214, 214, 214, 0.442);
-  }
-  
+  --color-matcha: #A0060B; /* Light mode main accent */     
+  --color-accentRed: #F64D54;
+  --color-darkBlue: #090517;
+  --color-hover: rgba(23, 23, 23, 0.445); 
+  --color-hoverText:#ffffff;
+  /* text */
+  --color-white: #ffffff;
+}
+
+.light {
+  --color-matcha: #A0060B;
+  --color-accentRed: #E63A42;
+  --color-darkBlue: #ffffff; /*main bg for light mode*/
+  --color-white: #090517;               
+  --color-hoverText: #ffffff;               
+}
+
+

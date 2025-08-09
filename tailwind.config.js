@@ -17,6 +17,7 @@ export default {
         darkBlue: 'var(--color-darkBlue)',
         white: 'var(--color-white)',
         hover: 'var(--color-hover)',
+        hoverText: 'var(--color-hoverText)',
       }
     },
   },
