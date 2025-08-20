@@ -1,53 +1,55 @@
 <template>
   <!-- right sidebar for web -->
-  <nav :class="{ light: isLightMode }" class="fixed select-none side_bar h-full border-r border-1 border-gray-700 flex flex-col justify-center gap-4 transition-linear duration-500">
+  <nav :class="{ light: isLightMode }"
+    class="fixed select-none side_bar h-full border-r border-1 border-gray-700 flex flex-col justify-center gap-4 transition-linear duration-500">
     <div class="w-full mt-8 absolute top-0">
       <div class="flex text-white w-full mx-auto">
         <div class="mx-auto flex">
-          <img src="\logo\LOGO_HIVYE.png" class="w-[45px]" />    
+          <img src="\logo\LOGO_HIVYE.png" class="w-[45px]" />
           <span class="mt-5 mx-2 text-lg font-bold hidden sm:hidden md:block">HIVYE </span>
         </div>
       </div>
     </div>
     <!-- eto tlga ung side bar -->
     <div v-for="(tab, index) in side_bar_tabs" :key="index" class="">
-      <div class="w-11/12 mx-auto rounded-3xl text-xl text-white hover:bg-matcha hover:text-hoverText dark:hover:text-hoverText transition duration-300 cursor-pointer  "
-        @click="toggleTab(index)">
-        <router-link :to="tab.route" class="flex flex-row py-3 w-full px-5 md:px-10 items-center gap-3">
-          <component :is="tab.active ? tab.icon : tab.inactiveIcon" class="w-6 h-6 shrink-0" />
-          <div class="hidden sm:hidden md:block" :class="{'font-bold': tab.active}" >{{ tab.displayName }}</div>    
-        </router-link>
+      <div class="pl-10 pr-5">
+        <div class="px-auto mx-auto rounded-xl text-xl text-white hover:bg-matcha hover:text-hoverText dark:hover:text-hoverText transition duration-300 cursor-pointer" @click="toggleTab(index)">
+          <router-link :to="tab.route" class="flex flex-row py-3 w-full px-5 md:px-10 items-center gap-4">
+            <component :is="tab.active ? tab.icon : tab.inactiveIcon" class="w-7 h-7 shrink-0" />
+            <div class="hidden sm:hidden md:block" :class="{ 'font-bold': tab.active }">{{ tab.displayName }}</div>
+          </router-link>
+        </div>
       </div>
     </div>
     <!-- dark mode (theme itself) -->
     <div class="absolute bottom-0 w-full">
-      <div class="text-white hover:text-hoverText flex flex-row mx-4 sm:mx-auto my-4 w-11/12 rounded-lg py-3 text-xl px-5 md:px-10 items-center gap-3 hover:bg-matcha  transition duration-300 cursor-pointer"
-      @click="toggleLightMode">
+      <div
+        class="text-white hover:text-hoverText flex flex-row mx-4 sm:mx-auto my-4 w-11/12 rounded-lg py-3 text-xl px-5 md:px-10 items-center gap-3 hover:bg-matcha  transition duration-300 cursor-pointer"
+        @click="toggleLightMode">
         <light_mode v-if="isLightMode" />
         <dark_mode v-if="!isLightMode" />
         <span class="hidden sm:hidden md:block">Theme</span>
       </div>
     </div>
-    
+
   </nav>
   <!-- nav bar for mobile-->
-  <div class="mobile_nav_bar h-[50px] bg-darkBlue border-t border-1 border-gray-600 fixed z-10 flex justify-between items-center bottom-0 w-full p-1 transition-ease-in-out duration-300">
+  <div
+    class="mobile_nav_bar h-[50px] bg-darkBlue border-t border-1 border-gray-600 fixed z-10 flex justify-between items-center bottom-0 w-full p-1 transition-ease-in-out duration-300">
     <div class="flex w-full justify-around">
-        <div class="no-underline flex justify-center items-center text-white" 
-          v-for="(tab, index) in mobile_nav_tabs" 
-          :key="index">
-          <div class="flex justify-center items-center p-1 cursor-pointer" 
-          @click="toggleButton(index)">
-            <router-link :to="tab.route" class="flex flex-row py-3 w-full px-5 md:px-10 items-center gap-3">
-              <component :is="tab.active ? tab.icon : tab.inactiveIcon" class="mobile_icon"/>
-            </router-link>  
-          </div>
+      <div class="no-underline flex justify-center items-center text-white" v-for="(tab, index) in mobile_nav_tabs"
+        :key="index">
+        <div class="flex justify-center items-center p-1 cursor-pointer" @click="toggleButton(index)">
+          <router-link :to="tab.route" class="flex flex-row py-3 w-full px-5 md:px-10 items-center gap-3">
+            <component :is="tab.active ? tab.icon : tab.inactiveIcon" class="mobile_icon" />
+          </router-link>
         </div>
+      </div>
     </div>
   </div>
-  
+
   <main class="main_content transition-linear duration-500 h-full">
-      <router-view></router-view>  
+    <router-view></router-view>
   </main>
 </template>
 <script>
@@ -153,10 +155,10 @@ export default{
 </script>
 <style scoped>
 .side_bar{
-  width: 250px;
+  width: 300px;
 }
 .main_content{
-  margin-left: 250px;
+  margin-left: 300px;
 }
 .mobile_nav_bar{
   visibility: hidden;
