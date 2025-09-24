@@ -10,9 +10,4 @@ I kept firebase for database and cloud service. I migrated with Vite from vue-cl
 - selection of input in risk estimator quiz
 - admin
 
-## Project Setup
-```
-npm i
-npm run dev
-```
 
