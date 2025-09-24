@@ -9,7 +9,7 @@ const fetchUserData = (uid) => {
       onValue(user_ref, (snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
-          resolve([data.display_name, data.username, data.birthday]); // ✅ Resolve with data
+          resolve([data.display_name, data.username, data.birthday]);
         } else {
           reject("User data not found");
         }
@@ -26,8 +26,7 @@ const fetchUserPostsId = (uid) => {
       onValue(user_ref, (snapshot) => {
         if (snapshot.exists()) {
           const data = Object.keys(snapshot.val().interactions.user_posts);
-          // console.lag('post ids ni user: ', data)
-          resolve(data); // Resolve with data
+          resolve(data); 
         } else {
           reject("User data not found");
         }
