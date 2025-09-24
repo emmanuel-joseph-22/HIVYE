@@ -104,9 +104,9 @@ import Helpline_mobile from './Helpline_mobile.vue';
 // import CommentCard from '../../components/posts_components/commentCard.vue';
 import CommentButton from '../../components/buttons/commentButton.vue';
 
-import { HIVYE_database as db, HIVYE_storage as storage } from "@/main";
+import { HIVYE_database as db } from "@/main";
 import { useUserStore } from '@/stores/user';
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+// import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { ref as firebase_ref, set as fireset, get, remove as firetrash } from 'firebase/database';
 import { getCurrentTime, formatDate, timeAgo } from '@/scripts/dateAndTime';
 
@@ -184,13 +184,14 @@ export default{
                 this.user_id = userStore.user_id
                 this.display_name = userStore.displayName
                 
-                //to generate randomized unique image id 
                 let currentDate = new Date().toJSON().slice(0, 10);
                 let currentTime = getCurrentTime();
-                const today = new Date();
-                const img_id = today.getFullYear() + "" +  + today.getMonth() + ""  + today.getDay() + "" + today.getHours() + "" + today.getMinutes() +  today.getSeconds() + "" + today.getMilliseconds()
-                const storageRef = ref(storage, `folder/${img_id}`);
-                const if_img_uploaded = this.$refs.uploaded_image.files[0]
+                //to generate randomized unique image id 
+
+                // const today = new Date();
+                // const img_id = today.getFullYear() + "" +  + today.getMonth() + ""  + today.getDay() + "" + today.getHours() + "" + today.getMinutes() +  today.getSeconds() + "" + today.getMilliseconds()
+                // const storageRef = ref(storage, `folder/${img_id}`);
+                // const if_img_uploaded = this.$refs.uploaded_image.files[0]
                 
                 // url named "empty" if there is no uploaded picture
                 var url = "empty";
@@ -198,10 +199,10 @@ export default{
                 const postID = timestamp
 
                 // uploads the picture in firebase storage
-                if(if_img_uploaded){
-                    await uploadBytes(storageRef, this.$refs.uploaded_image.files[0]);
-                    url = await getDownloadURL(ref(storage, `folder/${img_id}`))
-                }
+                // if(if_img_uploaded){
+                //     await uploadBytes(storageRef, this.$refs.uploaded_image.files[0]);
+                //     url = await getDownloadURL(ref(storage, `folder/${img_id}`))
+                // }
 
                 // pushing into database posts folder
                 fireset(firebase_ref(db,"posts/" + postID),{
