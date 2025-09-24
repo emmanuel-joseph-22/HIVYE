@@ -100,12 +100,22 @@ onMounted(() => {
         sortNotifications();
     }, 500)
 })
-  
+
 const formattedNotification = (notification) => {
-  let formattedText = notification.text.replace(
+  const maxLength = 200; // or whatever length you want before ellipsis
+
+  // Truncate the full text if too long
+  let text = notification.text;
+  if (text.length > maxLength) {
+    text = text.slice(0, maxLength - 3) + '...';
+  }
+
+  // Replace the post_name with bolded version
+  let formattedText = text.replace(
     notification.post_name,
     `<b>${notification.post_name}</b>`
   );
+
   return formattedText;
 };
 </script>
